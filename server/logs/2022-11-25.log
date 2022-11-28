@@ -1,0 +1,9 @@
+{"@timestamp":"2022-11-25T02:33:36.327Z","level":"info","message":"Operation `Subject.countDocuments()` buffering timed out after 10000ms"}
+{"@timestamp":"2022-11-25T02:35:21.064Z","level":"info","message":"Seeding: subjectSeeder.js"}
+{"@timestamp":"2022-11-25T02:35:21.087Z","level":"info","message":"Seeding: locationSeeder.js"}
+{"@timestamp":"2022-11-25T02:35:21.093Z","level":"info","message":"Teacher validation failed: accountId: Path `accountId` is required.","errors":{"accountId":{"name":"ValidatorError","message":"Path `accountId` is required.","properties":{"message":"Path `accountId` is required.","type":"required","path":"accountId","value":""},"kind":"required","path":"accountId","value":""}},"_message":"Teacher validation failed"}
+{"@timestamp":"2022-11-25T02:35:44.975Z","level":"info","message":"Seeding: teacherSeeder.js"}
+{"@timestamp":"2022-11-25T02:35:44.982Z","level":"info","message":"Seeding: studentSeeder.js"}
+{"@timestamp":"2022-11-25T02:35:44.991Z","level":"info","message":"Seeding: classSeeder.js"}
+{"@timestamp":"2022-11-25T02:35:44.994Z","level":"info","message":"Account validation failed: username: Path `username` is required.","errors":{"username":{"name":"ValidatorError","message":"Path `username` is required.","properties":{"message":"Path `username` is required.","type":"required","path":"username"},"kind":"required","path":"username"}},"_message":"Account validation failed"}
+{"@timestamp":"2022-11-25T02:36:17.154Z","level":"info","message":"Seeding: accountSeeder.js"}
