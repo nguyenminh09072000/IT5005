@@ -5,14 +5,14 @@ const subjectSeeder = async () => {
   if ((await Subject.countDocuments()) !== 0) return
   await Subject.insertMany([
     {
-      subjectId: 'IT3150',
+      subjectId: 'IT3000',
       subjectName: 'Computer Architecture',
-      credit: 3,
+      credit: 2,
     },
     {
-      subjectId: 'IT3450',
+      subjectId: 'IT4000',
       subjectName: 'Football',
-      credit: 2,
+      credit: 3,
     },
   ])
 

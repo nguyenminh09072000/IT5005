@@ -1,12 +1,12 @@
 import express from 'express'
-import {} from '@root/controllers/student'
+import { createStudent, deleteStudent, getStudent, getStudentClassList, updateStudent } from '@root/controllers/student'
 
 const studentRouter = express.Router()
 
-studentRouter.get('/info')
-studentRouter.get('/líst')
-studentRouter.post('/')
-studentRouter.put('/')
-studentRouter.delete('/')
+studentRouter.get('/get', getStudent)
+studentRouter.post('/update', updateStudent)
+studentRouter.post('/create', createStudent)
+studentRouter.put('/delete', deleteStudent)
+studentRouter.delete('/get-class-list', getStudentClassList)
 
 export default studentRouter
