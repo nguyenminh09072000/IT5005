@@ -3,6 +3,6 @@ import {} from '@root/controllers/admin'
 
 const adminRouter = express.Router()
 
-adminRouter.get('/get', getAdmin)
+adminRouter.get('/get')
 
 export default adminRouter
