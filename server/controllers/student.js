@@ -4,6 +4,7 @@ import {
   findStudent,
   findStudentAndUpdate,
 } from '@root/repository/studentRepository'
+import { findClass } from '@root/repository/classRepository'
 
 export const getStudent = async (req, res) => {
   try {
@@ -50,8 +51,23 @@ export const getStudentClassList = async (req, res) => {
   try {
     const { studentId } = req.body
     const student = await findStudent({ studentId })
-    const studentClassList = student.studentClasses
-    return res.json(studentClassList)
+    const classIDs = student.studentClasses
+    const classList = []
+    for (const ele of classIDs) {
+      const classInfo = await findClass({ classId: ele })
+      const classStudent = classInfo.students
+      const studentInClass = classStudent.filter((student) => student.studentId === studentId)
+      classList.push({
+        classId: ele,
+        subjectId: classInfo.subjectId,
+        subjectName: classInfo.subjectName,
+        midterm: studentInClass[0].midterm,
+        final: studentInClass[0].final,
+        locationName: classInfo.locationName,
+        classBusyTime: classInfo.classBusyTime,
+      })
+    }
+    return res.json(classList)
   } catch (error) {
     res.status(500).json(error)
   }

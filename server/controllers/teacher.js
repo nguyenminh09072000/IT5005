@@ -1,5 +1,9 @@
-import { createNewStudent, findStudentAndUpdate } from '@root/repository/studentRepository'
-import { findAndDeleteTeacher, findTeacher } from '@root/repository/teacherRepository'
+import {
+  createNewTeacher,
+  findAndDeleteTeacher,
+  findTeacher,
+  findTeacherAndUpdate,
+} from '@root/repository/teacherRepository'
 
 export const getTeacher = async (req, res) => {
   try {
@@ -15,7 +19,7 @@ export const getTeacher = async (req, res) => {
 export const updateTeacher = async (req, res) => {
   try {
     const { teacherId, updateInfo } = req.body
-    const teacher = await findStudentAndUpdate({ teacherId }, updateInfo, { new: true })
+    const teacher = await findTeacherAndUpdate({ teacherId }, updateInfo, { new: true })
     return res.json(teacher)
   } catch (error) {
     res.status(500).json(error)
@@ -25,7 +29,7 @@ export const updateTeacher = async (req, res) => {
 export const createTeacher = async (req, res) => {
   try {
     const { teacherId, teacherName, accountId } = req.body
-    const teacher = await createNewStudent([{ teacherId }, { teacherName }, { accountId }])
+    const teacher = await createNewTeacher([{ teacherId }, { teacherName }, { accountId }])
     return res.json(teacher)
   } catch (error) {
     res.status(500).json(error)
