@@ -3,6 +3,6 @@ import { getFreeLocation } from '@root/controllers/location'
 
 const locationRouter = express.Router()
 
-locationRouter.get('/get-free-location', getFreeLocation)
+locationRouter.post('/get-free-location', getFreeLocation)
 
 export default locationRouter

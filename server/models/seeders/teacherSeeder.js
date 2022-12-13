@@ -9,28 +9,12 @@ const teacherSeeder = async () => {
       teacherName: 'Le Tan Hung',
       accountId: 'asdfasdf',
       teacherBusyTime: [1, 2, 3, 9, 10, 11],
-      teacherClasses: [
-        {
-          classId: '105688',
-        },
-        {
-          classId: '100000',
-        },
-      ],
     },
     {
       teacherId: '0002',
       teacherName: 'Nguyen Thi Kim Anh',
       accountId: 'sfdcasd',
       teacherBusyTime: [5, 6, 7, 8, 9, 10],
-      teacherClasses: [
-        {
-          classId: '100002',
-        },
-        {
-          classId: '100001',
-        },
-      ],
     },
   ])
 

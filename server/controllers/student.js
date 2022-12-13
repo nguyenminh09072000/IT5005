@@ -30,7 +30,7 @@ export const updateStudent = async (req, res) => {
 export const createStudent = async (req, res) => {
   try {
     const { studentId, studentName, accountId } = req.body
-    const student = await createNewStudent([{ studentId }, { studentName }, { accountId }])
+    const student = await createNewStudent([{ studentId, studentName, accountId }])
     return res.json(student)
   } catch (error) {
     res.status(500).json(error)
@@ -51,21 +51,26 @@ export const getStudentClassList = async (req, res) => {
   try {
     const { studentId } = req.body
     const student = await findStudent({ studentId })
-    const classIDs = student.studentClasses
+
+    const classIDs = student.classes
     const classList = []
+
     for (const ele of classIDs) {
       const classInfo = await findClass({ classId: ele })
-      const classStudent = classInfo.students
-      const studentInClass = classStudent.filter((student) => student.studentId === studentId)
-      classList.push({
-        classId: ele,
-        subjectId: classInfo.subjectId,
-        subjectName: classInfo.subjectName,
-        midterm: studentInClass[0].midterm,
-        final: studentInClass[0].final,
-        locationName: classInfo.locationName,
-        classBusyTime: classInfo.classBusyTime,
-      })
+
+      if (classInfo.length) {
+        const classStudent = classInfo[0].students
+        const studentInClass = classStudent.filter((ele) => ele.studentId === studentId)
+        classList.push({
+          classId: ele,
+          subjectId: classInfo[0].subjectId,
+          subjectName: classInfo[0].subjectName,
+          midterm: studentInClass[0].midterm,
+          final: studentInClass[0].final,
+          locationName: classInfo[0].locationName,
+          classBusyTime: classInfo[0].classBusyTime,
+        })
+      }
     }
     return res.json(classList)
   } catch (error) {

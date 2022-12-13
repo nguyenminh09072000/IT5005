@@ -3,7 +3,7 @@ import db from '@root/config/mongo'
 
 const Location = new mongoose.Schema(
   {
-    locationName: { type: String, required: true },
+    locationName: { type: String, required: true, unique: true },
     locationBusyTime: { type: Array },
   },
   { timestamps: true }

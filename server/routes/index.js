@@ -5,7 +5,6 @@ import locationRouter from '@root/routes/location'
 import teacherRouter from '@root/routes/teacher'
 
 const router = (app) => {
-  // app.use('/admin', adminRouter)
   app.use('/class', classRouter)
   app.use('/student', studentRouter)
   app.use('/subject', subjectRouter)

@@ -7,6 +7,6 @@ studentRouter.get('/get', getStudent)
 studentRouter.post('/update', updateStudent)
 studentRouter.post('/create', createStudent)
 studentRouter.put('/delete', deleteStudent)
-studentRouter.delete('/get-class-list', getStudentClassList)
+studentRouter.post('/get-class-list', getStudentClassList)
 
 export default studentRouter
