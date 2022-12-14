@@ -60,7 +60,7 @@ export const getStudentClassList = async (req, res) => {
 
       if (classInfo.length) {
         const classStudent = classInfo[0].students
-        const studentInClass = classStudent.filter((ele) => ele.studentId === studentId)
+        const studentInClass = classStudent.filter((element) => element.studentId === studentId)
         classList.push({
           classId: ele,
           subjectId: classInfo[0].subjectId,

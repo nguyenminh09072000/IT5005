@@ -1,12 +1,9 @@
 import express from 'express'
-import { getAuth, Register, Login, Delete } from '@root/controllers/auth'
-const router = express.Router()
+import { registerAccount, login, deleteAccount } from '@root/controllers/auth'
+const authRouter = express.Router()
 
-router.get('/', getAuth)
+authRouter.post('/register', registerAccount)
+authRouter.post('/login', login)
+authRouter.delete('/delete/:email', deleteAccount)
 
-router.post('/register', Register)
-router.post('/login', Login)
-
-router.delete('/delete/:email', Delete)
-
-export default router
+export default authRouter

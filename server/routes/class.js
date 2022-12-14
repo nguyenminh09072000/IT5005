@@ -9,8 +9,10 @@ import {
   setScore,
   updateClass,
 } from '@root/controllers/class'
+import { verifyAccessToken } from '@root/middleware/auth'
 
 const classRouter = express.Router()
+classRouter.use(verifyAccessToken)
 
 classRouter.get('/get', getClass)
 classRouter.post('/update', updateClass)
