@@ -44,6 +44,31 @@ const subjectSeeder = async () => {
             subjectName: 'Đại số',
             credit: 4,
         },
+        {
+            subjectId: 'MI2020',
+            subjectName: 'Xác suất thống kê',
+            credit: 3,
+        },
+        {
+            subjectId: 'IT3020',
+            subjectName: 'Toán rời rạc',
+            credit: 3,
+        },
+        {
+            subjectId: 'MI3052',
+            subjectName: 'Nhập môn các phương pháp tối ưu',
+            credit: 2,
+        },
+        {
+            subjectId: 'PH1110',
+            subjectName: 'Vật lý đại cương I',
+            credit: 3,
+        },
+        {
+            subjectId: 'PH1120',
+            subjectName: 'Vật lý đại cương II',
+            credit: 3,
+        },
     ]);
 
     logger.info('Seeding: subjectSeeder.js');
