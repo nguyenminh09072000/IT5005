@@ -1,0 +1,5 @@
+{"@timestamp":"2022-12-16T03:40:27.586Z","level":"info","message":"Seeding: subjectSeeder.js"}
+{"@timestamp":"2022-12-16T03:40:27.713Z","level":"info","message":"Seeding: locationSeeder.js"}
+{"@timestamp":"2022-12-16T03:40:27.829Z","level":"info","message":"Seeding: teacherSeeder.js"}
+{"@timestamp":"2022-12-16T03:40:27.965Z","level":"info","message":"Seeding: studentSeeder.js"}
+{"@timestamp":"2022-12-16T03:40:28.020Z","level":"info","message":"Class validation failed: maxSlot: Path `maxSlot` is required.","errors":{"maxSlot":{"name":"ValidatorError","message":"Path `maxSlot` is required.","properties":{"message":"Path `maxSlot` is required.","type":"required","path":"maxSlot"},"kind":"required","path":"maxSlot"}},"_message":"Class validation failed"}
