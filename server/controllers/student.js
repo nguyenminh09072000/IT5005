@@ -29,7 +29,7 @@ export const updateStudent = async (req, res) => {
 
 export const createStudent = async (req, res) => {
   try {
-    const { studentId, studentName, accountId } = req.body
+    const { studentId, studentName, credit } = req.body
     const student = await createNewStudent([{ studentId, studentName, accountId }])
     return res.json(student)
   } catch (error) {
