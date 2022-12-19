@@ -1,0 +1,4 @@
+{"@timestamp":"2022-12-14T07:04:46.424Z","level":"error","message":"Missing access token"}
+{"@timestamp":"2022-12-14T07:04:46.425Z","level":"error","message":"verifyJwtAccessToken is not defined"}
+{"@timestamp":"2022-12-14T07:05:04.614Z","level":"error","message":"Missing access token"}
+{"@timestamp":"2022-12-14T07:05:04.615Z","level":"error","message":"verifyJwtAccessToken is not defined"}

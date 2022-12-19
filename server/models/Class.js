@@ -3,14 +3,13 @@ import db from '@root/config/mongo'
 
 const Class = new mongoose.Schema(
   {
-    classId: { type: String, required: true },
+    classId: { type: String, required: true, unique: true },
     subjectId: { type: String, required: true },
     teacherId: { type: String },
     students: { type: Array },
     locationName: { type: String, required: true },
-    day: { type: String },
-    timeStart: { type: Number },
-    timeEnd: { type: Number },
+    classBusyTime: { type: Array },
+    maxSlot: { type: Number, required: true },
   },
   { timestamps: true }
 )

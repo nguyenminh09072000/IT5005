@@ -3,9 +3,9 @@ import db from '@root/config/mongo'
 
 const Student = new mongoose.Schema(
   {
-    studentId: { type: String, required: true },
+    studentId: { type: String, required: true, unique: true },
     studentName: { type: String, required: true },
-    accountId: { type: String, required: true },
+    accountId: { type: String, required: true, unique: true },
     studentBusyTime: { type: Array },
     classes: { type: Array },
   },
