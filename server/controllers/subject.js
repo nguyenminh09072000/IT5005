@@ -2,6 +2,7 @@ import {
     findSubject,
     createNewSubject,
     findSubjectAndUpdate,
+    deleteSubject
 } from '@root/repository/subjectRepository';
 
 export const getSubject = async (req, res) => {
