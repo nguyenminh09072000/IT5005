@@ -1,0 +1,1 @@
+{"@timestamp":"2022-12-19T08:05:35.002Z","level":"info","message":"Class validation failed: maxSlot: Path `maxSlot` is required.","errors":{"maxSlot":{"name":"ValidatorError","message":"Path `maxSlot` is required.","properties":{"message":"Path `maxSlot` is required.","type":"required","path":"maxSlot"},"kind":"required","path":"maxSlot"}},"_message":"Class validation failed"}
