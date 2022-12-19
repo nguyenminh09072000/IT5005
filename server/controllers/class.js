@@ -6,6 +6,7 @@ import {
 } from '@root/repository/classRepository';
 import {findStudentAndUpdate} from '@root/repository/studentRepository';
 import {ROLES} from '@root/utils/constant';
+import {findTeacher, findTeacherAndUpdate} from '@root/repository/teacherRepository';
 
 export const getClass = async (req, res) => {
     try {
@@ -38,9 +39,27 @@ export const createClass = async (req, res) => {
         }
         const {classId, subjectId, teacherId, locationName, classBusyTime, maxSlot} = req.body;
         const students = [];
+        const teacher = await findTeacher({teacherId});
+        if (!teacher) {
+            return res.json({message: 'Invalid input'});
+        }
+        let {teacherBusyTime} = teacher;
+        classBusyTime.forEach(ele => {
+            if (teacherBusyTime.includes(ele)) {
+                return res.json({message: 'Teacher not available'});
+            }
+        });
         const newClass = await createNewClass([
             {classId, subjectId, teacherId, locationName, classBusyTime, students, maxSlot},
         ]);
+        teacherBusyTime.concat(classBusyTime);
+        teacherBusyTime = teacherBusyTime.sort(function (a, b) {
+            return a - b;
+        });
+        await findTeacherAndUpdate(
+            {teacherId},
+            {teacherBusyTime, $push: {teacherClasses: classId}}
+        );
         return res.json(newClass);
     } catch (error) {
         res.status(500).json(error);
