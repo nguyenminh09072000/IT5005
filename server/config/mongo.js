@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
 
 mongoose
-    .connect(
-        'mongodb+srv://minhnn:minhnn123@cluster0.oqpblan.mongodb.net/?retryWrites=true&w=majority'
-    )
+    .connect(process.env.MONGO_DB_URL)
     .then(() => {
         console.log('Connected to DB');
     })

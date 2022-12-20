@@ -18,10 +18,7 @@ export const registerAccount = async (req, res) => {
             role,
         });
         await newUser.save();
-        const accessToken = jwt.sign(
-            {username: username, role: role},
-            '123456' || process.env.SECRET_KEY
-        );
+        const accessToken = jwt.sign({username: username, role: role}, process.env.SECRET_KEY);
         return res.json({
             success: true,
             message: 'User created successfully',
@@ -61,10 +58,7 @@ export const login = async (req, res) => {
             });
         }
 
-        const accessToken = jwt.sign(
-            {username: username, role: role},
-            '123456' || process.env.SECRET_KEY
-        );
+        const accessToken = jwt.sign({username: username, role: role}, process.env.SECRET_KEY);
         return res.json({
             success: true,
             message: 'Login successfully',
