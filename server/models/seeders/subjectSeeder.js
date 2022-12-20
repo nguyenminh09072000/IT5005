@@ -15,7 +15,7 @@ const subjectSeeder = async () => {
             credit: 3,
         },
         {
-            subjectId: 'IT1110',
+            subjectId: 'IT1000',
             subjectName: 'Tin học đại cương',
             credit: 4,
         },
@@ -24,11 +24,7 @@ const subjectSeeder = async () => {
             subjectName: 'Giải tích I',
             credit: 4,
         },
-        {
-            subjectId: 'IT4000',
-            subjectName: 'Football',
-            credit: 3,
-        },
+
         {
             subjectId: 'MI1121',
             subjectName: 'Giải tích II',

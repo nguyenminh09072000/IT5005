@@ -7,6 +7,7 @@ import {
 import {findStudent, findStudentAndUpdate} from '@root/repository/studentRepository';
 import {ROLES} from '@root/utils/constant';
 import {findTeacher, findTeacherAndUpdate} from '@root/repository/teacherRepository';
+import {findLocationAndUpdate, getLocationList} from '@root/repository/locationRepository';
 
 export const getClass = async (req, res) => {
     try {
@@ -26,6 +27,7 @@ export const updateClass = async (req, res) => {
         }
         const {classId, updateInfo} = req.body;
         await findClassAndUpdate({classId}, updateInfo);
+        return res.json({message: 'Successful'});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -39,10 +41,12 @@ export const createClass = async (req, res) => {
         }
         const {classId, subjectId, teacherId, locationName, classBusyTime, maxSlot} = req.body;
         const students = [];
+
         const teacher = await findTeacher({teacherId});
         if (!teacher) {
             return res.json({message: 'Invalid input'});
         }
+
         let {teacherBusyTime} = teacher;
         let isTeacherBusy = false;
         classBusyTime.forEach(ele => {
@@ -50,12 +54,21 @@ export const createClass = async (req, res) => {
                 isTeacherBusy = true;
             }
         });
-        if (isTeacherBusy) {
-            return res.json({message: 'Teacher not available'});
-        }
+        if (isTeacherBusy) return res.json({message: 'Teacher is not available'});
+
+        const location = await getLocationList({locationName});
+
+        let {locationBusyTime} = location[0];
+        let isLocationBusy = false;
+        classBusyTime.forEach(ele => {
+            if (locationBusyTime.includes(ele)) isLocationBusy = true;
+        });
+        if (isLocationBusy) return res.json({message: 'Location is not available'});
+
         const newClass = await createNewClass([
             {classId, subjectId, teacherId, locationName, classBusyTime, students, maxSlot},
         ]);
+
         teacherBusyTime = teacherBusyTime.concat(classBusyTime);
         teacherBusyTime = teacherBusyTime.sort(function (a, b) {
             return a - b;
@@ -64,6 +77,14 @@ export const createClass = async (req, res) => {
             {teacherId},
             {teacherBusyTime, $push: {teacherClasses: classId}}
         );
+
+        locationBusyTime = locationBusyTime.concat(classBusyTime);
+        locationBusyTime = locationBusyTime.sort(function (a, b) {
+            return a - b;
+        });
+
+        await findLocationAndUpdate({locationName}, {locationBusyTime});
+
         return res.json(newClass);
     } catch (error) {
         res.status(500).json(error);
@@ -77,7 +98,51 @@ export const deleteClass = async (req, res) => {
             return res.json({message: 'Invalid role'});
         }
         const {classId} = req.body;
+        const classInfo = await findClass({classId});
         await findAndDeleteClass({classId});
+
+        // TODO: update studentBusyTime and studentClasses
+
+        const studentList = classInfo[0].students;
+        const {classBusyTime} = classInfo[0];
+        for (const studentInClass of studentList) {
+            const student = await findStudent({studentId: studentInClass.studentId});
+            let {studentBusyTime} = student;
+            classBusyTime.forEach(ele => {
+                const index = studentBusyTime.indexOf(ele);
+                if (index > -1) {
+                    studentBusyTime.splice(index, 1);
+                }
+            });
+
+            await findStudentAndUpdate(
+                {studentId: studentInClass.studentId},
+                {studentBusyTime, $pull: {classes: classId}}
+            );
+        }
+        // TODO: update teacherBusyTime
+        const teacher = await findTeacher({teacherId: classInfo[0].teacherId});
+        let {teacherBusyTime} = teacher;
+        classBusyTime.forEach(ele => {
+            const index = teacherBusyTime.indexOf(ele);
+            if (index > -1) {
+                teacherBusyTime.splice(index, 1);
+            }
+        });
+        await findTeacherAndUpdate({teacherId: classInfo[0].teacherId}, {teacherBusyTime});
+
+        // TODO: update locationBusyTime
+        const location = await getLocationList({locationName: classInfo[0].locationName});
+        let {locationBusyTime} = location[0];
+        classBusyTime.forEach(ele => {
+            const index = locationBusyTime.indexOf(ele);
+            if (index > -1) {
+                locationBusyTime.splice(index, 1);
+            }
+        });
+        await findLocationAndUpdate({locationName: classInfo[0].locationName}, {locationBusyTime});
+
+        return res.json({message: 'Successful'});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -88,7 +153,7 @@ export const getStudentOfClass = async (req, res) => {
         const {classId} = req.body;
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;
-        return res.json(studentList);
+        return res.json({studentList});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -153,6 +218,7 @@ export const addStudentToClass = async (req, res) => {
         const {studentId, classId} = req.body;
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;
+        const student = await findStudent({studentId});
 
         if (studentList.length >= classInfo[0].maxSlot) {
             return res.json({message: 'Class is full'});
@@ -166,9 +232,8 @@ export const addStudentToClass = async (req, res) => {
         if (isStudentInClass) {
             return res.json({message: 'Student have already been in class'});
         }
-        studentList.push({studentId, midterm: 0, final: 0});
+        studentList.push({studentId, studentName: student.studentName, midterm: 0, final: 0});
 
-        const student = await findStudent({studentId});
         const {classBusyTime} = classInfo[0];
         let {studentBusyTime} = student;
         let isStudentBusy = false;

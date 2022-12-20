@@ -1,26 +1,19 @@
-import Student from '@root/models/Student'
-import { logger } from '@root/config/logger'
+import Student from '@root/models/Student';
+import {logger} from '@root/config/logger';
 
 const studentSeeder = async () => {
-  if ((await Student.countDocuments()) !== 0) return
-  await Student.insertMany([
-    {
-      studentId: '20183592',
-      studentName: 'Nguyen Nhat Minh  ',
-      accountId: '58jdsfkaewradfadf',
-      studentBusyTime: [1, 2, 3],
-      classes: [
+    if ((await Student.countDocuments()) !== 0) return;
+    await Student.insertMany([
         {
-          classId: '105688',
+            studentId: '20183592',
+            studentName: 'Nguyen Nhat Minh',
+            username: 'minh.nn183592@gmail.com',
+            studentBusyTime: [],
+            classes: [],
         },
-        {
-          classId: '105754',
-        },
-      ],
-    },
-  ])
+    ]);
 
-  logger.info('Seeding: studentSeeder.js')
-}
+    logger.info('Seeding: studentSeeder.js');
+};
 
-export default studentSeeder
+export default studentSeeder;

@@ -1,16 +1,20 @@
-import Location from '@root/models/Location'
-import { logger } from '@root/config/logger'
+import Location from '@root/models/Location';
+import {logger} from '@root/config/logger';
 
 const locationSeeder = async () => {
-  if ((await Location.countDocuments()) !== 0) return
-  await Location.insertMany([
-    {
-      locationName: 'TC-101',
-      locationBusyTime: [1, 2, 3, 4, 5, 6],
-    },
-  ])
+    if ((await Location.countDocuments()) !== 0) return;
+    await Location.insertMany([
+        {
+            locationName: 'TC-101',
+            locationBusyTime: [],
+        },
+        {
+            locationName: 'TC-102',
+            locationBusyTime: [],
+        },
+    ]);
 
-  logger.info('Seeding: locationSeeder.js')
-}
+    logger.info('Seeding: locationSeeder.js');
+};
 
-export default locationSeeder
+export default locationSeeder;
