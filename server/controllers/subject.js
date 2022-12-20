@@ -4,6 +4,7 @@ import {
     findSubjectAndUpdate,
     findAndDeleteSubject,
 } from '@root/repository/subjectRepository';
+import {ROLES} from '@root/utils/constant';
 
 export const getSubject = async (req, res) => {
     try {
@@ -17,6 +18,10 @@ export const getSubject = async (req, res) => {
 
 export const updateSubject = async (req, res) => {
     try {
+        const {role} = req;
+        if (role !== ROLES.ADMIN) {
+            return res.json({message: 'Invalid role'});
+        }
         const {subjectId, subjectName, credit} = req.body;
         const subject = await findSubjectAndUpdate({subjectId}, {subjectName, credit}, {new: true});
         return res.json(subject);
@@ -27,6 +32,10 @@ export const updateSubject = async (req, res) => {
 
 export const createSubject = async (req, res) => {
     try {
+        const {role} = req;
+        if (role !== ROLES.ADMIN) {
+            return res.json({message: 'Invalid role'});
+        }
         const {subjectId, subjectName, credit} = req.body;
         const subject = await createNewSubject([{subjectId, subjectName, credit}]);
         return res.json(subject);
@@ -37,6 +46,10 @@ export const createSubject = async (req, res) => {
 
 export const deleteSubject = async (req, res) => {
     try {
+        const {role} = req;
+        if (role !== ROLES.ADMIN) {
+            return res.json({message: 'Invalid role'});
+        }
         const {subjectId} = req.body;
         await findAndDeleteSubject({subjectId});
         return res.json({message: 'Deleted'});
