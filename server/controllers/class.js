@@ -4,7 +4,7 @@ import {
     findClass,
     findClassAndUpdate,
 } from '@root/repository/classRepository';
-import {findStudentAndUpdate} from '@root/repository/studentRepository';
+import {findStudent, findStudentAndUpdate} from '@root/repository/studentRepository';
 import {ROLES} from '@root/utils/constant';
 import {findTeacher, findTeacherAndUpdate} from '@root/repository/teacherRepository';
 
@@ -44,15 +44,19 @@ export const createClass = async (req, res) => {
             return res.json({message: 'Invalid input'});
         }
         let {teacherBusyTime} = teacher;
+        let isTeacherBusy = false;
         classBusyTime.forEach(ele => {
             if (teacherBusyTime.includes(ele)) {
-                return res.json({message: 'Teacher not available'});
+                isTeacherBusy = true;
             }
         });
+        if (isTeacherBusy) {
+            return res.json({message: 'Teacher not available'});
+        }
         const newClass = await createNewClass([
             {classId, subjectId, teacherId, locationName, classBusyTime, students, maxSlot},
         ]);
-        teacherBusyTime.concat(classBusyTime);
+        teacherBusyTime = teacherBusyTime.concat(classBusyTime);
         teacherBusyTime = teacherBusyTime.sort(function (a, b) {
             return a - b;
         });
@@ -121,13 +125,23 @@ export const deleteStudentFromClass = async (req, res) => {
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;
 
+        const student = await findStudent({studentId});
+        let {studentBusyTime} = student;
+        const {classBusyTime} = classInfo[0];
+        classBusyTime.forEach(ele => {
+            const index = studentBusyTime.indexOf(ele);
+            if (index > -1) {
+                studentBusyTime.splice(index, 1);
+            }
+        });
+
         const newStudentList = [];
         studentList.map(ele => {
             if (ele.studentId !== studentId) newStudentList.push(ele);
         });
         await findClassAndUpdate({classId}, {students: newStudentList});
 
-        await findStudentAndUpdate({studentId}, {$pull: {studentClasses: classId}});
+        await findStudentAndUpdate({studentId}, {studentBusyTime, $pull: {classes: classId}});
         return res.json({message: 'Successfully delete student'});
     } catch (error) {
         res.status(500).json(error);
@@ -143,14 +157,38 @@ export const addStudentToClass = async (req, res) => {
         if (studentList.length >= classInfo[0].maxSlot) {
             return res.json({message: 'Class is full'});
         }
-
+        let isStudentInClass = false;
         studentList.forEach(ele => {
             if (ele.studentId === studentId) {
-                return res.json({message: 'Student have already been in class'});
+                isStudentInClass = true;
             }
         });
+        if (isStudentInClass) {
+            return res.json({message: 'Student have already been in class'});
+        }
         studentList.push({studentId, midterm: 0, final: 0});
-        const updateStudent = await findStudentAndUpdate({studentId}, {$push: {classes: classId}});
+
+        const student = await findStudent({studentId});
+        const {classBusyTime} = classInfo[0];
+        let {studentBusyTime} = student;
+        let isStudentBusy = false;
+        classBusyTime.forEach(ele => {
+            if (studentBusyTime.includes(ele)) {
+                isStudentBusy = true;
+            }
+        });
+        if (isStudentBusy) {
+            return res.json({message: 'Student not available'});
+        }
+
+        studentBusyTime = studentBusyTime.concat(classBusyTime);
+        studentBusyTime = studentBusyTime.sort(function (a, b) {
+            return a - b;
+        });
+        const updateStudent = await findStudentAndUpdate(
+            {studentId},
+            {studentBusyTime, $push: {classes: classId}}
+        );
         if (!updateStudent) {
             return res.json({message: 'Invalid student'});
         }

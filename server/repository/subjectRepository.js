@@ -7,4 +7,4 @@ export const findSubjectAndUpdate = (filter, data, options) =>
 
 export const createNewSubject = data => Subject.create(data);
 
-export const deleteSubject = filter => Subject.deleteOne(filter);
+export const findAndDeleteSubject = filter => Subject.deleteOne(filter);

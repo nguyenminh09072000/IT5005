@@ -2,7 +2,7 @@ import {
     findSubject,
     createNewSubject,
     findSubjectAndUpdate,
-    deleteSubject
+    findAndDeleteSubject,
 } from '@root/repository/subjectRepository';
 
 export const getSubject = async (req, res) => {
@@ -38,7 +38,7 @@ export const createSubject = async (req, res) => {
 export const deleteSubject = async (req, res) => {
     try {
         const {subjectId} = req.body;
-        await deleteSubject({subjectId});
+        await findAndDeleteSubject({subjectId});
         return res.json({message: 'Deleted'});
     } catch (error) {
         res.status(500).json(error);
