@@ -14,7 +14,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 function Login(props) {
     const navigate = useNavigate();
     const role = props.role;
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [open, setOpen] = useState(false);
     const [error, setError] = useState('');
@@ -39,9 +39,10 @@ function Login(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                // 'Authorization' : 
             },
             body: JSON.stringify({
-                email,
+                username,
                 password,
                 role,
             }),
@@ -52,7 +53,7 @@ function Login(props) {
         if (data['success'] === true) {
             TokenService.setLocalAccessToken(data['accessToken']);
             RoleService.setLocalRole(role);
-            GmailService.setLocalGmail(email);
+            GmailService.setLocalGmail(username);
             navigate('/' + role + '/home');
         } else {
             setError(data['message']);
@@ -86,8 +87,8 @@ function Login(props) {
                                         Email
                                     </label>
                                     <input
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
                                         type="email"
                                         id="email"
                                         className="form-control form-control-lg"
