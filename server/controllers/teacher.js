@@ -9,8 +9,9 @@ import {ROLES} from '@root/utils/constant';
 
 export const getTeacher = async (req, res) => {
     try {
-        const {teacherId} = req.query;
+        const {teacherId} = req.body;
         const teacher = await findTeacher({teacherId});
+        // console.log(teacher);
         return res.json(teacher);
     } catch (error) {
         res.status(500).json(error);
@@ -39,6 +40,7 @@ export const createTeacher = async (req, res) => {
         }
         const {teacherId, teacherName, username} = req.body;
         const teacher = await createNewTeacher([{teacherId, teacherName, username}]);
+        console.log('Teacher add ' + teacher);
         return res.json(teacher);
     } catch (error) {
         res.status(500).json(error);

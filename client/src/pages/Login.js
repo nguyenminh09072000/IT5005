@@ -34,8 +34,7 @@ function Login(props) {
 
     async function handleLogin(event) {
         event.preventDefault();
-
-        const response = await fetch('http://localhost:3001/auth/login', {
+        const response = await fetch('http://localhost:5000/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
