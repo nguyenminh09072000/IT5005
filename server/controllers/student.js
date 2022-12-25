@@ -28,8 +28,15 @@ export const updateStudent = async (req, res) => {
         if (role === ROLES.TEACHER) {
             return res.json({message: 'Invalid role'});
         }
-        const {studentId, studentName} = req.body;
-        const student = await findStudentAndUpdate({studentId}, {studentName}, {new: true});
+        const {studentId, studentName, birthday, gender, phone} = req.body;
+
+        let data = {};
+        if (studentName) data.studentName = studentName;
+        if (birthday) data.birthday = birthday;
+        if (gender) data.gender = gender;
+        if (phone) data.phone = phone;
+
+        const student = await findStudentAndUpdate({studentId}, data, {new: true});
         return res.json(student);
     } catch (error) {
         res.status(500).json(error);
@@ -42,8 +49,10 @@ export const createStudent = async (req, res) => {
         if (role !== ROLES.ADMIN) {
             return res.json({message: 'Invalid role'});
         }
-        const {studentId, studentName, username} = req.body;
-        const student = await createNewStudent([{studentId, studentName, username}]);
+        const {studentId, studentName, username, birthday, gender, phone} = req.body;
+        const student = await createNewStudent([
+            {studentId, studentName, username, birthday, gender, phone},
+        ]);
         return res.json(student);
     } catch (error) {
         res.status(500).json(error);

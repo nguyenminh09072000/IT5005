@@ -37,8 +37,10 @@ export const createTeacher = async (req, res) => {
         if (role !== ROLES.ADMIN) {
             return res.json({message: 'Invalid role'});
         }
-        const {teacherId, teacherName, username} = req.body;
-        const teacher = await createNewTeacher([{teacherId, teacherName, username}]);
+        const {teacherId, teacherName, username, birthday, gender, phone} = req.body;
+        const teacher = await createNewTeacher([
+            {teacherId, teacherName, username, birthday, gender, phone},
+        ]);
         return res.json(teacher);
     } catch (error) {
         res.status(500).json(error);
