@@ -1,11 +1,13 @@
 import {
     createNewTeacher,
     findAndDeleteTeacher,
+    findListTeacher,
     findTeacher,
     findTeacherAndUpdate,
 } from '@root/repository/teacherRepository';
 import {findClass} from '@root/repository/classRepository';
 import {ROLES} from '@root/utils/constant';
+import {findListStudent} from '@root/repository/studentRepository';
 
 export const getTeacher = async (req, res) => {
     try {
@@ -66,6 +68,15 @@ export const getTeacherClassList = async (req, res) => {
         const {teacherId} = req.body;
         const classList = await findClass({teacherId});
         return res.json(classList);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+export const getAllTeacher = async (req, res) => {
+    try {
+        const teacherList = await findListTeacher();
+        return res.json({teacherList});
     } catch (error) {
         res.status(500).json(error);
     }

@@ -1,6 +1,7 @@
 import {
     createNewStudent,
     findAndDeleteStudent,
+    findListStudent,
     findStudent,
     findStudentAndUpdate,
 } from '@root/repository/studentRepository';
@@ -101,6 +102,15 @@ export const getStudentClassList = async (req, res) => {
             }
         }
         return res.json(classList);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+export const getAllStudent = async (req, res) => {
+    try {
+        const studentList = await findListStudent();
+        return res.json({studentList});
     } catch (error) {
         res.status(500).json(error);
     }
