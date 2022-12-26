@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './CSS/FooterCSS.module.scss';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import footerImg from '../assets/images/hust-footer.jpeg';
-import Box from '@mui/material/Box';
+// import footerImg from '../assets/images/hust-footer.jpeg';
+// import Box from '@mui/material/Box';
 
 function Footer() {
     return (

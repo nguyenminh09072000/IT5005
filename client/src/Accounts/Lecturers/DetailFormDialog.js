@@ -5,13 +5,14 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { MenuItem, DialogTitle, DialogContent, DialogActions, Dialog, TextField, Button } from '@mui/material';
 
 export default function DetailFormDialog(props) {
+    console.log(props.lecturer);
     const [open, setOpen] = React.useState(true);
-    const [FullName, setFullName] = React.useState(props.lecturer.FullName);
-    const [DateOfBirth, setDateOfBirth] = React.useState(new Date(props.lecturer.DateOfBirth));
-    const [Sex, setSex] = React.useState(props.lecturer.Sex);
-    const [Born, setBorn] = React.useState(props.lecturer.Born);
-    const [IdentityNumber, setIdentityNumber] = React.useState(props.lecturer.IdentityNumber);
-    const [PhoneNumber, setPhoneNumber] = React.useState(props.lecturer.PhoneNumber);
+    const [FullName, setFullName] = React.useState(props.lecturer.teacherName);
+    const [DateOfBirth, setDateOfBirth] = React.useState(new Date(props.lecturer.birthday));
+    const [Sex, setSex] = React.useState(props.lecturer.gender);
+    const [PhoneNumber, setPhoneNumber] = React.useState(props.lecturer.phone);
+    const [TeacherId, setTeacherId] = React.useState(props.lecturer.teacherId);
+    const [UserName, setUserName] = React.useState(props.lecturer.username);
     const options = [
         {
             value: 'Male',
@@ -22,6 +23,7 @@ export default function DetailFormDialog(props) {
             label: 'Female',
         },
     ];
+    
 
     const handleClose = () => {
         setOpen(false);
@@ -37,8 +39,8 @@ export default function DetailFormDialog(props) {
                 FullName: FullName,
                 DateOfBirth: DateOfBirth,
                 Sex: Sex,
-                Born: Born,
-                IdentityNumber: IdentityNumber,
+                // Born: Born,
+                // IdentityNumber: IdentityNumber,
                 PhoneNumber: PhoneNumber,
             }),
         });
@@ -51,14 +53,14 @@ export default function DetailFormDialog(props) {
                     id: props.id,
                     FullName: FullName,
                     Email: props.Email,
-                    IdentityNumber: IdentityNumber,
+                    // IdentityNumber: IdentityNumber,
                 },
                 {
                     FullName: FullName,
                     DateOfBirth: DateOfBirth,
                     Sex: Sex,
-                    Born: Born,
-                    IdentityNumber: IdentityNumber,
+                    // Born: Born,
+                    // IdentityNumber: IdentityNumber,
                     PhoneNumber: PhoneNumber,
                 },
             );
@@ -120,6 +122,34 @@ export default function DetailFormDialog(props) {
                             </TextField>
                             <TextField
                                 required
+                                id="User name"
+                                label="User name"
+                                defaultValue={UserName}
+                                onChange={(event) => {
+                                    setUserName(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="TeacherId"
+                                label="Teacher ID"
+                                defaultValue={TeacherId}
+                                onChange={(event) => {
+                                    setTeacherId(event.target.value);
+                                }}
+                            />
+                            
+                            <TextField
+                                required
+                                id="PhoneNumber"
+                                label="Phone Number"
+                                defaultValue={PhoneNumber}
+                                onChange={(event) => {
+                                    setPhoneNumber(event.target.value);
+                                }}
+                            />
+                            {/* <TextField
+                                required
                                 id="Born"
                                 label="Home town"
                                 defaultValue={Born}
@@ -135,16 +165,7 @@ export default function DetailFormDialog(props) {
                                 onChange={(event) => {
                                     setIdentityNumber(event.target.value);
                                 }}
-                            />
-                            <TextField
-                                required
-                                id="PhoneNumber"
-                                label="Phone Number"
-                                defaultValue={PhoneNumber}
-                                onChange={(event) => {
-                                    setPhoneNumber(event.target.value);
-                                }}
-                            />
+                            /> */}
                         </div>
                     </Box>
                 </DialogContent>

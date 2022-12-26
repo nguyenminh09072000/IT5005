@@ -6,16 +6,18 @@ import { MenuItem, DialogTitle, DialogContent, DialogActions, Dialog, TextField,
 
 export default function DetailFormDialog(props) {
     const [open, setOpen] = React.useState(true);
-
-    const [FullName, setFullName] = React.useState(props.student.FullName);
-    const [DateOfBirth, setDateOfBirth] = React.useState(new Date(props.student.DateOfBirth));
-    const [SchoolYear, setSchoolYear] = React.useState(props.student.SchoolYear);
-    const [Class, setClass] = React.useState(props.student.Class);
-    const [Sex, setSex] = React.useState(props.student.Sex);
-    const [Major, setMajor] = React.useState(props.student.Major);
-    const [Born, setBorn] = React.useState(props.student.Born);
-    const [IdentityNumber, setIdentityNumber] = React.useState(props.student.IdentityNumber);
-    const [PhoneNumber, setPhoneNumber] = React.useState(props.student.PhoneNumber);
+    console.log(props.student);
+    const [FullName, setFullName] = React.useState(props.student.studentName);
+    const [DateOfBirth, setDateOfBirth] = React.useState(new Date(props.student.birthday));
+    // const [SchoolYear, setSchoolYear] = React.useState(props.student.SchoolYear);
+    // const [Class, setClass] = React.useState(props.student.Class);
+    const [Sex, setSex] = React.useState(props.student.gender);
+    // const [Major, setMajor] = React.useState(props.student.Major);
+    // const [Born, setBorn] = React.useState(props.student.Born);
+    // const [IdentityNumber, setIdentityNumber] = React.useState(props.student.IdentityNumber);
+    const [PhoneNumber, setPhoneNumber] = React.useState(props.student.phone);
+    const [StudentId, setStudentId] = React.useState(props.student.studentId);
+    const [UserName, setUserName] = React.useState(props.student.username);
     const options = [
         {
             value: 'Male',
@@ -41,12 +43,12 @@ export default function DetailFormDialog(props) {
                 SID: props.SID,
                 FullName: FullName,
                 DateOfBirth: DateOfBirth,
-                SchoolYear: SchoolYear,
-                Class: Class,
+                // SchoolYear: SchoolYear,
+                // Class: Class,
                 Sex: Sex,
-                Major: Major,
-                Born: Born,
-                IdentityNumber: IdentityNumber,
+                // Major: Major,
+                // Born: Born,
+                // IdentityNumber: IdentityNumber,
                 PhoneNumber: PhoneNumber,
             }),
         });
@@ -60,17 +62,17 @@ export default function DetailFormDialog(props) {
                     SID: props.SID,
                     FullName: FullName,
                     Email: props.Email,
-                    IdentityNumber: IdentityNumber,
+                    // IdentityNumber: IdentityNumber,
                 },
                 {
                     FullName: FullName,
                     DateOfBirth: DateOfBirth,
-                    SchoolYear: SchoolYear,
-                    Class: Class,
+                    // SchoolYear: SchoolYear,
+                    // Class: Class,
                     Sex: Sex,
-                    Major: Major,
-                    Born: Born,
-                    IdentityNumber: IdentityNumber,
+                    // Major: Major,
+                    // Born: Born,
+                    // IdentityNumber: IdentityNumber,
                     PhoneNumber: PhoneNumber,
                 },
             );
@@ -116,27 +118,6 @@ export default function DetailFormDialog(props) {
                                 />
                             </LocalizationProvider>
                             <TextField
-                                id="SchoolYear"
-                                label="School Year  "
-                                type="number"
-                                defaultValue={SchoolYear}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                            />
-                            <TextField
-                                required
-                                id="Class"
-                                label="Class"
-                                defaultValue={Class}
-                                onChange={(event) => {
-                                    setClass(event.target.value);
-                                }}
-                            />
-                            <TextField
                                 id="Gender"
                                 select
                                 label="Gender"
@@ -153,14 +134,63 @@ export default function DetailFormDialog(props) {
                             </TextField>
                             <TextField
                                 required
+                                id="User name"
+                                label="User name"
+                                defaultValue={UserName}
+                                onChange={(event) => {
+                                    setUserName(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="StudentId"
+                                label="Student ID"
+                                defaultValue={StudentId}
+                                onChange={(event) => {
+                                    setStudentId(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="PhoneNumber"
+                                label="Phone Number"
+                                defaultValue={PhoneNumber}
+                                onChange={(event) => {
+                                    setPhoneNumber(event.target.value);
+                                }}
+                            />
+                            {/* <TextField
+                                id="SchoolYear"
+                                label="School Year  "
+                                type="number"
+                                defaultValue={SchoolYear}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            /> */}
+                            {/* <TextField
+                                required
+                                id="Class"
+                                label="Class"
+                                defaultValue={Class}
+                                onChange={(event) => {
+                                    setClass(event.target.value);
+                                }}
+                            /> */}
+
+                            {/* <TextField
+                                required
                                 id="Major"
                                 label="Major"
                                 defaultValue={Major}
                                 onChange={(event) => {
                                     setMajor(event.target.value);
                                 }}
-                            />
-                            <TextField
+                            /> */}
+                            {/* <TextField
                                 required
                                 id="Born"
                                 label="Home town"
@@ -168,8 +198,8 @@ export default function DetailFormDialog(props) {
                                 onChange={(event) => {
                                     setBorn(event.target.value);
                                 }}
-                            />
-                            <TextField
+                            /> */}
+                            {/* <TextField
                                 required
                                 id="IdentityNumber"
                                 label="Identity Number"
@@ -186,7 +216,7 @@ export default function DetailFormDialog(props) {
                                 onChange={(event) => {
                                     setPhoneNumber(event.target.value);
                                 }}
-                            />
+                            /> */}
                         </div>
                     </Box>
                 </DialogContent>

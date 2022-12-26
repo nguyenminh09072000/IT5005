@@ -9,7 +9,6 @@ import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import DropzoneDialog from './DropzoneDialog';
 import TokenService from '../../service/TokenService';
-import axios from 'axios';
 
 class LecturerAccount extends React.Component {
     constructor(props) {
@@ -19,7 +18,7 @@ class LecturerAccount extends React.Component {
                 { field: 'id', headerName: 'Index', width: 70 },
                 { field: 'FullName', headerName: 'Full Name', width: 280 },
                 { field: 'Email', headerName: 'Email', width: 300 },
-                { field: 'IdentityNumber', headerName: 'Identity Number', width: 230 },
+                { field: 'TeacherID', headerName: 'Teacher ID', width: 230 },
                 {
                     field: 'detail',
                     headerName: 'Details',
@@ -59,13 +58,20 @@ class LecturerAccount extends React.Component {
 
                             const api: GridApi = params.api;
                             const id = params.id;
-                            const Email = api.getCellValue(params.id, 'Email');
-                            const response = await fetch(`http://localhost:5000/lecturer/${Email}`, {
-                                method: 'DELETE',
+                            const TeacherId = api.getCellValue(params.id, 'TeacherID');
+                            const email = api.getCellValue(params.id, 'Email');
+                            console.log(id + TeacherId + email);
+                            const response = await fetch(`http://localhost:5000/teacher/delete`, {
+                                method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
+                                    authorization: TokenService.getLocalAccessToken(),
                                 },
+                                body: JSON.stringify({
+                                    teacherId: TeacherId,
+                                }),
                             });
+                            console.log(response['status']);
                             if (response['status'] === 200) {
                                 this.setState((state) => ({
                                     rows: [...state.rows.slice(0, id - 1), ...state.rows.slice(id)].map((e, i) => ({
@@ -76,7 +82,7 @@ class LecturerAccount extends React.Component {
                                     })),
                                     dataAPI: [...state.dataAPI.slice(0, id - 1), ...state.dataAPI.slice(id)],
                                 }));
-                                const user = await fetch(`http://localhost:5000/auth/delete/${Email}`, {
+                                const user = await fetch(`http://localhost:5000/auth/delete/${email}`, {
                                     method: 'DELETE',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -112,7 +118,7 @@ class LecturerAccount extends React.Component {
         this.Upload = this.Upload.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         // alert('data');
         // const response = await fetch('http://localhost:5000/teacher/get', {
         //     method: 'POST',
@@ -127,18 +133,18 @@ class LecturerAccount extends React.Component {
         // const data = await response.json();
         // alert(data);
 
-        const response = await fetch('http://localhost:5000/teacher/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: TokenService.getLocalAccessToken(),
-            },
-            body: JSON.stringify({
-                teacherId: '0006',
-                teacherName: 'Nguyen Van A',
-                username: 'teacher6@gmail.com',
-            }),
-        });
+        // const response = await fetch('http://localhost:5000/teacher/create', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         authorization: TokenService.getLocalAccessToken(),
+        //     },
+        //     body: JSON.stringify({
+        //         teacherId: '0006',
+        //         teacherName: 'Nguyen Van A',
+        //         username: 'teacher6@gmail.com',
+        //     }),
+        // });
         // const data = await response.json();
         // alert(data);
 
@@ -176,7 +182,7 @@ class LecturerAccount extends React.Component {
         // const data = await response.json();
         // console.log(data);
 
-        await fetch('http://localhost:5000/teacher/get-all', {
+        fetch('http://localhost:5000/teacher/get-all', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -186,12 +192,12 @@ class LecturerAccount extends React.Component {
             .then((response) => response.json())
             .then((data) =>
                 this.setState(() => ({
-                    dataAPI: data.data.map((obj) => obj['_doc']),
+                    dataAPI: data.data.map((obj) => obj),
                     rows: data.data.map((obj, index) => ({
                         id: index + 1,
                         FullName: obj?.teacherName,
                         Email: obj?.username,
-                        IdentityNumber: obj?.teacherId,
+                        TeacherID: obj?.teacherId,
                     })),
                 })),
             )
