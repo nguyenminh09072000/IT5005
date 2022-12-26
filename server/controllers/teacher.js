@@ -75,8 +75,8 @@ export const getTeacherClassList = async (req, res) => {
 
 export const getAllTeacher = async (req, res) => {
     try {
-        const teacherList = await findListTeacher();
-        return res.json({teacherList});
+        const data = await findListTeacher();
+        return res.json({data});
     } catch (error) {
         res.status(500).json(error);
     }
