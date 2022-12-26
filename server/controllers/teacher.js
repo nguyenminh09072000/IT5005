@@ -1,17 +1,18 @@
 import {
     createNewTeacher,
     findAndDeleteTeacher,
+    findListTeacher,
     findTeacher,
     findTeacherAndUpdate,
 } from '@root/repository/teacherRepository';
 import {findClass} from '@root/repository/classRepository';
 import {ROLES} from '@root/utils/constant';
+import {findListStudent} from '@root/repository/studentRepository';
 
 export const getTeacher = async (req, res) => {
     try {
-        const {teacherId} = req.body;
+        const {teacherId} = req.query;
         const teacher = await findTeacher({teacherId});
-        // console.log(teacher);
         return res.json(teacher);
     } catch (error) {
         res.status(500).json(error);
@@ -38,9 +39,14 @@ export const createTeacher = async (req, res) => {
         if (role !== ROLES.ADMIN) {
             return res.json({message: 'Invalid role'});
         }
+        console.log(role);
         const {teacherId, teacherName, username} = req.body;
-        const teacher = await createNewTeacher([{teacherId, teacherName, username}]);
-        console.log('Teacher add ' + teacher);
+        console.log(teacherId);
+        console.log(teacherName);console.log(username);
+
+        const teacher = await createNewTeacher([
+            {teacherId, teacherName, username},
+        ]);
         return res.json(teacher);
     } catch (error) {
         res.status(500).json(error);
@@ -66,6 +72,15 @@ export const getTeacherClassList = async (req, res) => {
         const {teacherId} = req.body;
         const classList = await findClass({teacherId});
         return res.json(classList);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+export const getAllTeacher = async (req, res) => {
+    try {
+        const data = await findListTeacher();
+        return res.json({data});
     } catch (error) {
         res.status(500).json(error);
     }

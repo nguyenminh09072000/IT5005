@@ -19,11 +19,7 @@ class LecturerAccount extends React.Component {
                 { field: 'id', headerName: 'Index', width: 70 },
                 { field: 'FullName', headerName: 'Full Name', width: 280 },
                 { field: 'Email', headerName: 'Email', width: 300 },
-                {
-                    field: 'IdentityNumber',
-                    headerName: 'Identity Number',
-                    width: 230,
-                },
+                { field: 'IdentityNumber', headerName: 'Identity Number', width: 230 },
                 {
                     field: 'detail',
                     headerName: 'Details',
@@ -131,58 +127,77 @@ class LecturerAccount extends React.Component {
         // const data = await response.json();
         // alert(data);
 
-        // const response = await fetch('http://localhost:5000/teacher/create', {
-        //     method: 'POST',
+        const response = await fetch('http://localhost:5000/teacher/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: TokenService.getLocalAccessToken(),
+            },
+            body: JSON.stringify({
+                teacherId: '0006',
+                teacherName: 'Nguyen Van A',
+                username: 'teacher6@gmail.com',
+            }),
+        });
+        // const data = await response.json();
+        // alert(data);
+
+        // alert(data);
+
+        // await axios
+        //     .post(
+        //         'http://localhost:5000/teacher/get',
+        //         {
+        //             teacherId: '0001',
+        //         },
+        //         {
+        //             headers: {
+        //                 authorization: TokenService.getLocalAccessToken(),
+        //             },
+        //         },
+        //     )
+        //     .then((res) => {
+        //         console.log(res.data);
+        //         // alert(res.data.teacherId);
+        //         return res.data.message;
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //         return err.message;
+        //     });
+
+        // const response = await fetch('http://localhost:5000/teacher/get-all', {
+        //     method: 'GET',
         //     headers: {
         //         'Content-Type': 'application/json',
         //         authorization: TokenService.getLocalAccessToken(),
         //     },
-        //     body: JSON.stringify({
-        //         teacherId: '0004',
-        //         teacherName: 'Nguyen Van A',
-        //         username: 'teacher2@gmail.com',
-        //     }),
         // });
         // const data = await response.json();
-        // alert(data);
+        // console.log(data);
 
-        await axios
-            .post(
-                'http://localhost:5000/teacher/get',
-                {
-                    teacherId: '0001',
-                },
-                {
-                    headers: {
-                        authorization: TokenService.getLocalAccessToken(),
-                    },
-                },
+        await fetch('http://localhost:5000/teacher/get-all', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: TokenService.getLocalAccessToken(),
+            },
+        })
+            .then((response) => response.json())
+            .then((data) =>
+                this.setState(() => ({
+                    dataAPI: data.data.map((obj) => obj['_doc']),
+                    rows: data.data.map((obj, index) => ({
+                        id: index + 1,
+                        FullName: obj?.teacherName,
+                        Email: obj?.username,
+                        IdentityNumber: obj?.teacherId,
+                    })),
+                })),
             )
-            .then((res) => {
-                console.log(res.data);
-                // alert(res.data.teacherId);
-                return res.data.message;
-            })
-            .catch((err) => {
-                console.log(err);
-                return err.message;
+            .catch((error) => {
+                console.error('Error:', error);
             });
-
-        // fetch('http://localhost:5000/lecturer', {
-        //     cache: 'no-cache',
-        // })
-        //     .then((res) => res.json())
-        //     .then((data) =>
-        //         this.setState(() => ({
-        //             dataAPI: data.map((obj) => obj['_doc']),
-        //             rows: data.map((obj, index) => ({
-        //                 id: index + 1,
-        //                 FullName: obj['_doc'].FullName,
-        //                 Email: obj['_doc'].Email,
-        //                 IdentityNumber: obj['_doc'].IdentityNumber,
-        //             })),
-        //         })),
-        //     );
     }
 
     Upload(dataAPI, rows) {
