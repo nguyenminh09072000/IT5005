@@ -109,8 +109,8 @@ export const getStudentClassList = async (req, res) => {
 
 export const getAllStudent = async (req, res) => {
     try {
-        const studentList = await findListStudent();
-        return res.json({studentList});
+        const data = await findListStudent();
+        return res.json({data});
     } catch (error) {
         res.status(500).json(error);
     }

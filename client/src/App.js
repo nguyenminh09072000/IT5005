@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/home';
-// import StudentAccount from './Accounts/Students/StudentsAccount';
+import StudentAccount from './Accounts/Students/StudentsAccount';
 import LecturerAccount from './Accounts/Lecturers/LecturerAccount';
 // import LecturerHome from './pages/lecturerHome';
 // import LecturerInformation from './pages/lecturerInformation';
@@ -72,14 +72,14 @@ function App() {
                         </Home>
                     }
                 ></Route> */}
-                {/* <Route
+                <Route
                     path="/accounts/students"
                     element={
                         <Home role="admin">
                             <StudentAccount></StudentAccount>
                         </Home>
                     }
-                ></Route> */}
+                ></Route>
                 <Route
                     path="/accounts/lecturers"
                     element={
