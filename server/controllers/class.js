@@ -264,3 +264,12 @@ export const addStudentToClass = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+export const getAllClass = async (req, res) => {
+    try {
+        const data = await findClass();
+        return res.json(data);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};

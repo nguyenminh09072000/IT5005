@@ -15,7 +15,7 @@ studentRouter.use(verifyAccessToken);
 studentRouter.get('/get', getStudent);
 studentRouter.post('/update', updateStudent);
 studentRouter.post('/create', createStudent);
-studentRouter.put('/delete', deleteStudent);
+studentRouter.post('/delete', deleteStudent);
 studentRouter.post('/get-class-list', getStudentClassList);
 studentRouter.get('/get-all', getAllStudent);
 

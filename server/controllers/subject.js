@@ -57,3 +57,12 @@ export const deleteSubject = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+export const getAllSubject = async (req, res) => {
+    try {
+        const data = await findSubject();
+        return res.json(data);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
