@@ -121,6 +121,22 @@ export default function FormDialog(props) {
                         <div>
                             <TextField
                                 required
+                                id="TeacherId"
+                                label="Teacher ID"
+                                onChange={(event) => {
+                                    setTeacherId(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="User name"
+                                label="User name"
+                                onChange={(event) => {
+                                    setUserName(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
                                 id="FullName"
                                 label="Full Name"
                                 onChange={(event) => {
@@ -154,22 +170,6 @@ export default function FormDialog(props) {
                                 ))}
                             </TextField>
 
-                            <TextField
-                                required
-                                id="User name"
-                                label="User name"
-                                onChange={(event) => {
-                                    setUserName(event.target.value);
-                                }}
-                            />
-                            <TextField
-                                required
-                                id="TeacherId"
-                                label="Teacher ID"
-                                onChange={(event) => {
-                                    setTeacherId(event.target.value);
-                                }}
-                            />
                             <TextField
                                 required
                                 id="PhoneNumber"

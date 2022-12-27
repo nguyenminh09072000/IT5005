@@ -3,6 +3,7 @@ import {
     createNewSubject,
     findSubjectAndUpdate,
     findAndDeleteSubject,
+    findListSubject,
 } from '@root/repository/subjectRepository';
 import {ROLES} from '@root/utils/constant';
 
@@ -60,7 +61,7 @@ export const deleteSubject = async (req, res) => {
 
 export const getAllSubject = async (req, res) => {
     try {
-        const data = await findSubject();
+        const data = await findListSubject();
         return res.json(data);
     } catch (error) {
         res.status(500).json(error);

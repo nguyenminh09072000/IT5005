@@ -3,10 +3,9 @@ import { Box } from '@mui/system';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { MenuItem, DialogTitle, DialogContent, DialogActions, Dialog, TextField, Button } from '@mui/material';
-
+import TokenService from '../../service/TokenService';
 export default function DetailFormDialog(props) {
     const [open, setOpen] = React.useState(true);
-    console.log(props.student);
     const [FullName, setFullName] = React.useState(props.student.studentName);
     const [DateOfBirth, setDateOfBirth] = React.useState(new Date(props.student.birthday));
     // const [SchoolYear, setSchoolYear] = React.useState(props.student.SchoolYear);
@@ -38,42 +37,46 @@ export default function DetailFormDialog(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                authorization: TokenService.getLocalAccessToken(),
             },
             body: JSON.stringify({
-                SID: props.SID,
-                FullName: FullName,
-                DateOfBirth: DateOfBirth,
+                studentId: StudentId,
+                studentName: FullName,
+                birthday: DateOfBirth,
                 // SchoolYear: SchoolYear,
                 // Class: Class,
-                Sex: Sex,
+                gender: Sex,
                 // Major: Major,
                 // Born: Born,
                 // IdentityNumber: IdentityNumber,
-                PhoneNumber: PhoneNumber,
+                phone: PhoneNumber,
             }),
         });
 
         const data = await response.json();
-        if (data['success'] === true) {
+        if (response['status'] === 200) {
             props.Modify(
                 props.id,
                 {
                     id: props.id,
-                    SID: props.SID,
+                    // SID: props.SID,
                     FullName: FullName,
-                    Email: props.Email,
+                    Email: UserName,
+                    StudentID: StudentId,
                     // IdentityNumber: IdentityNumber,
                 },
                 {
-                    FullName: FullName,
-                    DateOfBirth: DateOfBirth,
+                    studentId: StudentId,
+                    studentName: FullName,
+                    birthday: DateOfBirth,
                     // SchoolYear: SchoolYear,
                     // Class: Class,
-                    Sex: Sex,
+                    username: UserName,
+                    gender: Sex,
                     // Major: Major,
                     // Born: Born,
                     // IdentityNumber: IdentityNumber,
-                    PhoneNumber: PhoneNumber,
+                    phone: PhoneNumber,
                 },
             );
             props.notify('success', 'Modify successfully!');
@@ -97,6 +100,15 @@ export default function DetailFormDialog(props) {
                         autoComplete="off"
                     >
                         <div>
+                            {/* <TextField
+                                required
+                                id="StudentId"
+                                label="Student ID"
+                                defaultValue={StudentId}
+                                onChange={(event) => {
+                                    setStudentId(event.target.value);
+                                }}
+                            /> */}
                             <TextField
                                 required
                                 id="FullName"
@@ -141,15 +153,7 @@ export default function DetailFormDialog(props) {
                                     setUserName(event.target.value);
                                 }}
                             />
-                            <TextField
-                                required
-                                id="StudentId"
-                                label="Student ID"
-                                defaultValue={StudentId}
-                                onChange={(event) => {
-                                    setStudentId(event.target.value);
-                                }}
-                            />
+
                             <TextField
                                 required
                                 id="PhoneNumber"

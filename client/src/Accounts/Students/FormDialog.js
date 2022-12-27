@@ -100,9 +100,9 @@ export default function FormDialog(props) {
                     username: UserName,
                 },
             );
-            props.Notify('success', 'Create Lecturer Sucessfully!');
+            props.Notify('success', 'Create Student Sucessfully!');
         } else {
-            props.Notify('error', 'Create Lecturer Error!!!');
+            props.Notify('error', 'Create Student Error!!!');
         }
         setOpen(false);
     };
@@ -126,10 +126,26 @@ export default function FormDialog(props) {
                         <div>
                             <TextField
                                 required
+                                id="StrudentId"
+                                label="Student ID"
+                                onChange={(event) => {
+                                    setStudentId(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
                                 id="FullName"
                                 label="Full Name"
                                 onChange={(event) => {
                                     setFullName(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="User name"
+                                label="User name"
+                                onChange={(event) => {
+                                    setUserName(event.target.value);
                                 }}
                             />
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -158,23 +174,6 @@ export default function FormDialog(props) {
                                     </MenuItem>
                                 ))}
                             </TextField>
-
-                            <TextField
-                                required
-                                id="User name"
-                                label="User name"
-                                onChange={(event) => {
-                                    setUserName(event.target.value);
-                                }}
-                            />
-                            <TextField
-                                required
-                                id="StrudentId"
-                                label="Student ID"
-                                onChange={(event) => {
-                                    setStudentId(event.target.value);
-                                }}
-                            />
                             <TextField
                                 required
                                 id="PhoneNumber"

@@ -71,7 +71,7 @@ class LecturerAccount extends React.Component {
                                     teacherId: TeacherId,
                                 }),
                             });
-                            console.log(response['status']);
+                            // console.log(response['status']);
                             if (response['status'] === 200) {
                                 this.setState((state) => ({
                                     rows: [...state.rows.slice(0, id - 1), ...state.rows.slice(id)].map((e, i) => ({

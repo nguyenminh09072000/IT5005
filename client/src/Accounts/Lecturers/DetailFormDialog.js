@@ -3,9 +3,9 @@ import { Box } from '@mui/system';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { MenuItem, DialogTitle, DialogContent, DialogActions, Dialog, TextField, Button } from '@mui/material';
-
+import TokenService from '../../service/TokenService';
 export default function DetailFormDialog(props) {
-    console.log(props.lecturer);
+    // console.log(props.lecturer);
     const [open, setOpen] = React.useState(true);
     const [FullName, setFullName] = React.useState(props.lecturer.teacherName);
     const [DateOfBirth, setDateOfBirth] = React.useState(new Date(props.lecturer.birthday));
@@ -23,45 +23,52 @@ export default function DetailFormDialog(props) {
             label: 'Female',
         },
     ];
-    
 
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleModify = async () => {
-        const response = await fetch('http://localhost:5000/lecturer/update', {
+        const response = await fetch('http://localhost:5000/teacher/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                authorization: TokenService.getLocalAccessToken(),
             },
             body: JSON.stringify({
-                FullName: FullName,
-                DateOfBirth: DateOfBirth,
-                Sex: Sex,
-                // Born: Born,
-                // IdentityNumber: IdentityNumber,
-                PhoneNumber: PhoneNumber,
+                teacherId: TeacherId,
+                updateInfo: {
+                    teacherName: FullName,
+                    username: UserName,
+                    birthday: DateOfBirth,
+                    gender: Sex,
+                    // Born: Born,
+                    // IdentityNumber: IdentityNumber,
+                    phone: PhoneNumber,
+                },
             }),
         });
 
         const data = await response.json();
-        if (data['success'] === true) {
+        if (response['status'] === 200) {
             props.Modify(
                 props.id,
                 {
                     id: props.id,
                     FullName: FullName,
-                    Email: props.Email,
+                    Email: UserName,
+                    TeacherID: TeacherId,
                     // IdentityNumber: IdentityNumber,
                 },
                 {
-                    FullName: FullName,
-                    DateOfBirth: DateOfBirth,
-                    Sex: Sex,
+                    teacherId: TeacherId,
+                    teacherName: FullName,
+                    birthday: DateOfBirth,
+                    username: UserName,
+                    gender: Sex,
                     // Born: Born,
                     // IdentityNumber: IdentityNumber,
-                    PhoneNumber: PhoneNumber,
+                    phone: PhoneNumber,
                 },
             );
             props.notify('success', 'Modify successfully!');
@@ -94,6 +101,15 @@ export default function DetailFormDialog(props) {
                                     setFullName(event.target.value);
                                 }}
                             />
+                            <TextField
+                                required
+                                id="User name"
+                                label="User name"
+                                defaultValue={UserName}
+                                onChange={(event) => {
+                                    setUserName(event.target.value);
+                                }}
+                            />
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DatePicker
                                     label="Date of Birth"
@@ -120,16 +136,7 @@ export default function DetailFormDialog(props) {
                                     </MenuItem>
                                 ))}
                             </TextField>
-                            <TextField
-                                required
-                                id="User name"
-                                label="User name"
-                                defaultValue={UserName}
-                                onChange={(event) => {
-                                    setUserName(event.target.value);
-                                }}
-                            />
-                            <TextField
+                            {/* <TextField
                                 required
                                 id="TeacherId"
                                 label="Teacher ID"
@@ -137,8 +144,8 @@ export default function DetailFormDialog(props) {
                                 onChange={(event) => {
                                     setTeacherId(event.target.value);
                                 }}
-                            />
-                            
+                            /> */}
+
                             <TextField
                                 required
                                 id="PhoneNumber"
