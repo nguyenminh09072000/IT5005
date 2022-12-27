@@ -152,8 +152,8 @@ export const getStudentOfClass = async (req, res) => {
     try {
         const {classId} = req.body;
         const classInfo = await findClass({classId});
-        const studentList = classInfo[0].students;
-        return res.json({studentList});
+        const data = classInfo[0].students;
+        return res.json({data});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -260,6 +260,15 @@ export const addStudentToClass = async (req, res) => {
         await findClassAndUpdate({classId}, {students: studentList});
 
         return res.json({message: 'Successfully add student to class'});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+export const getAllClass = async (req, res) => {
+    try {
+        const data = await findClass();
+        return res.json(data);
     } catch (error) {
         res.status(500).json(error);
     }
