@@ -7,8 +7,8 @@ import LecturerAccount from './Accounts/Lecturers/LecturerAccount';
 // import LecturerInformation from './pages/lecturerInformation';
 // import StudentInformation from './pages/studentInformation';
 // import LecturerTimetable from './pages/lecturerTimetable';
-// import Subject from './Subject/SubjectList';
-// import Classs from './Class/ClassList';
+import Subject from './Subject/SubjectList';
+import Classs from './Class/ClassList';
 // import Timetable from './pages/student/Timetable';
 // import SubList from './pages/lecturer/Sublist';
 // import Result from './pages/student/Result';
@@ -56,7 +56,7 @@ function App() {
                 {/* <Route path="/lecturer/classes" element={<LecturerClasses />}></Route> */}
                 {/* <Route path="/lecturer/timetable" element={<LecturerTimetable />}></Route> */}
 
-                {/* <Route
+                <Route
                     path="/subjects"
                     element={
                         <Home role="admin">
@@ -71,7 +71,7 @@ function App() {
                             <Classs></Classs>
                         </Home>
                     }
-                ></Route> */}
+                ></Route>
                 <Route
                     path="/accounts/students"
                     element={
