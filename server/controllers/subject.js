@@ -22,8 +22,16 @@ export const updateSubject = async (req, res) => {
         if (role !== ROLES.ADMIN) {
             return res.json({message: 'Invalid role'});
         }
-        const {subjectId, subjectName, credit} = req.body;
-        const subject = await findSubjectAndUpdate({subjectId}, {subjectName, credit}, {new: true});
+        const {subjectId, updateInfo} = req.body;
+        const {subjectName, credit} = updateInfo;
+        let data = {};
+        if (updateInfo.subjectName) {
+            data.subjectName = updateInfo.subjectName;
+        }
+        if (updateInfo.credit) {
+            data.credit = updateInfo.credit;
+        }
+        const subject = await findSubjectAndUpdate({subjectId}, data, {new: true});
         return res.json(subject);
     } catch (error) {
         res.status(500).json(error);
