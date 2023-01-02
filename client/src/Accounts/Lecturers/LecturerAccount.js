@@ -60,7 +60,7 @@ class LecturerAccount extends React.Component {
                             const id = params.id;
                             const TeacherId = api.getCellValue(params.id, 'TeacherID');
                             const email = api.getCellValue(params.id, 'Email');
-                            console.log(id + TeacherId + email);
+                            // console.log(id + TeacherId + email);
                             const response = await fetch(`http://localhost:5000/teacher/delete`, {
                                 method: 'POST',
                                 headers: {
