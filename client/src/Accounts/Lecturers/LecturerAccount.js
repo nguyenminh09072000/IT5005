@@ -16,9 +16,9 @@ class LecturerAccount extends React.Component {
         this.state = {
             columns: [
                 { field: 'id', headerName: 'Index', width: 70 },
+                { field: 'TeacherID', headerName: 'Teacher ID', width: 230 },
                 { field: 'FullName', headerName: 'Full Name', width: 280 },
                 { field: 'Email', headerName: 'Email', width: 300 },
-                { field: 'TeacherID', headerName: 'Teacher ID', width: 230 },
                 {
                     field: 'detail',
                     headerName: 'Details',
