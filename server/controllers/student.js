@@ -30,14 +30,14 @@ export const updateStudent = async (req, res) => {
             return res.json({message: 'Invalid role'});
         }
         const {studentId, studentName, birthday, gender, phone} = req.body;
-
+        // console.log(studentId + studentName + birthday + gender + phone);
         let data = {};
         if (studentName) data.studentName = studentName;
         if (birthday) data.birthday = birthday;
         if (gender) data.gender = gender;
         if (phone) data.phone = phone;
-
         const student = await findStudentAndUpdate({studentId}, data, {new: true});
+        // console.log(student);
         return res.json(student);
     } catch (error) {
         res.status(500).json(error);
