@@ -44,7 +44,7 @@ export const createClass = async (req, res) => {
 
         const teacher = await findTeacher({teacherId});
         if (!teacher) {
-            return res.json({message: 'Invalid input'});
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: 'Invalid input'});
         }
 
         let {teacherBusyTime} = teacher;
@@ -176,7 +176,7 @@ export const setScore = async (req, res) => {
             }
         );
         if (!studentScore) {
-            return res.json({message: 'Invalid student'});
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: 'Invalid student'});
         }
         return res.json({message: 'Successful'});
     } catch (error) {
@@ -255,7 +255,7 @@ export const addStudentToClass = async (req, res) => {
             {studentBusyTime, $push: {classes: classId}}
         );
         if (!updateStudent) {
-            return res.json({message: 'Invalid student'});
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: 'Invalid student'});
         }
         await findClassAndUpdate({classId}, {students: studentList});
 
