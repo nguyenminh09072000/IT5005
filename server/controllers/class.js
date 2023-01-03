@@ -219,7 +219,12 @@ export const addStudentToClass = async (req, res) => {
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;
         const student = await findStudent({studentId});
-
+        // console.log(req);
+        // if (req.role != 'admin') {
+        //     if (req.username != student.username) {
+        //         return res.status(HTTP_STATUS.FORBIDDEN).json('Invalid action');
+        //     }
+        // }
         if (studentList.length >= classInfo[0].maxSlot) {
             return res.json({message: 'Class is full'});
         }
