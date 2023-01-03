@@ -12,7 +12,7 @@ export const getStudent = async (req, res) => {
     try {
         const {role} = req;
         if (role === ROLES.TEACHER) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {studentId} = req.query;
         const filter = {studentId};
@@ -27,7 +27,7 @@ export const updateStudent = async (req, res) => {
     try {
         const {role} = req;
         if (role === ROLES.TEACHER) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {studentId, studentName, birthday, gender, phone} = req.body;
         // console.log(studentId + studentName + birthday + gender + phone);
@@ -48,7 +48,7 @@ export const createStudent = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {studentId, studentName, username, birthday, gender, phone} = req.body;
         const student = await createNewStudent([
@@ -74,7 +74,7 @@ export const getStudentClassList = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {studentId} = req.body;
         const student = await findStudent({studentId});

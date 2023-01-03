@@ -21,7 +21,7 @@ export const updateSubject = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {subjectId, updateInfo} = req.body;
         const {subjectName, credit} = updateInfo;
@@ -43,7 +43,7 @@ export const createSubject = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {subjectId, subjectName, credit} = req.body;
         const subject = await createNewSubject([{subjectId, subjectName, credit}]);
@@ -57,7 +57,7 @@ export const deleteSubject = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {subjectId} = req.body;
         await findAndDeleteSubject({subjectId});

@@ -24,7 +24,7 @@ export const updateTeacher = async (req, res) => {
         const {teacherId, updateInfo} = req.body;
         const {role} = req;
         if (role === ROLES.STUDENT) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const teacher = await findTeacherAndUpdate({teacherId}, updateInfo, {new: true});
         return res.json(teacher);
@@ -37,7 +37,7 @@ export const createTeacher = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {teacherId, teacherName, username, birthday, gender, phone} = req.body;
         const teacher = await createNewTeacher([
@@ -53,7 +53,7 @@ export const deleteTeacher = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {teacherId} = req.body;
         await findAndDeleteTeacher({teacherId});

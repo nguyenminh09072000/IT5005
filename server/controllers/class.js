@@ -5,7 +5,7 @@ import {
     findClassAndUpdate,
 } from '@root/repository/classRepository';
 import {findStudent, findStudentAndUpdate} from '@root/repository/studentRepository';
-import {ROLES} from '@root/utils/constant';
+import {HTTP_STATUS, ROLES} from '@root/utils/constant';
 import {findTeacher, findTeacherAndUpdate} from '@root/repository/teacherRepository';
 import {findLocationAndUpdate, getLocationList} from '@root/repository/locationRepository';
 
@@ -23,7 +23,7 @@ export const updateClass = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {classId, updateInfo} = req.body;
         await findClassAndUpdate({classId}, updateInfo);
@@ -37,7 +37,7 @@ export const createClass = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {classId, subjectId, teacherId, locationName, classBusyTime, maxSlot} = req.body;
         const students = [];
@@ -95,7 +95,7 @@ export const deleteClass = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {classId} = req.body;
         const classInfo = await findClass({classId});
@@ -163,7 +163,7 @@ export const setScore = async (req, res) => {
     try {
         const {role} = req;
         if (role !== ROLES.TEACHER) {
-            return res.json({message: 'Invalid role'});
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {studentId, classId, score} = req.body;
         const studentScore = await findClassAndUpdate(
