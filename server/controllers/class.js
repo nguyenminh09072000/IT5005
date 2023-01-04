@@ -161,11 +161,19 @@ export const getStudentOfClass = async (req, res) => {
 
 export const setScore = async (req, res) => {
     try {
-        const {role} = req;
+        const {role, username} = req;
+        const {studentId, classId, score} = req.body;
+
         if (role !== ROLES.TEACHER) {
             return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
-        const {studentId, classId, score} = req.body;
+
+        const teacher = await findTeacher({username});
+        const className = await findClass({classId});
+        if (teacher.teacherId !== className[0].teacherId) {
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: 'Invalid teacher'});
+        }
+
         const studentScore = await findClassAndUpdate(
             {classId, 'students.studentId': studentId},
             {
@@ -186,7 +194,17 @@ export const setScore = async (req, res) => {
 
 export const deleteStudentFromClass = async (req, res) => {
     try {
+        const {role, username} = req;
         const {studentId, classId} = req.body;
+
+        if (role !== ROLES.STUDENT) {
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
+        }
+        const checkStudent = await findStudent({username});
+        if (checkStudent.studentId !== studentId) {
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: 'Invalid student'});
+        }
+
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;
 
@@ -215,7 +233,17 @@ export const deleteStudentFromClass = async (req, res) => {
 
 export const addStudentToClass = async (req, res) => {
     try {
+        const {role, username} = req;
         const {studentId, classId} = req.body;
+
+        if (role !== ROLES.STUDENT) {
+            return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
+        }
+        const checkStudent = await findStudent({username});
+        if (checkStudent.studentId !== studentId) {
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: 'Invalid student'});
+        }
+
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;
         const student = await findStudent({studentId});
