@@ -88,7 +88,7 @@ function Header() {
             </Box>
             {!role && (
                 <Box className={clsx(styles.headerBottom)}>
-                    <Link to="/lecturer/login" className={clsx(styles.headerTab)}>
+                    <Link to="/teacher/login" className={clsx(styles.headerTab)}>
                         GIẢNG VIÊN
                     </Link>
                     <Link to="/student/login" className={clsx(styles.headerTab)}>
@@ -121,15 +121,15 @@ function Header() {
                     </Link>
                 </Box>
             )}
-            {role === 'lecturer' && (
+            {role === 'teacher' && (
                 <Box className={clsx(styles.headerBottom)}>
-                    <Link to="/lecturer/home" className={clsx(styles.headerTab)}>
+                    <Link to="/teacher/home" className={clsx(styles.headerTab)}>
                         TRANG CHỦ
                     </Link>
-                    <Link to="/lecturer/sub" className={clsx(styles.headerTab)}>
+                    <Link to="/teacher/sub" className={clsx(styles.headerTab)}>
                         GIẢNG DẠY
                     </Link>
-                    <Link to="/lecturer/timetable" className={clsx(styles.headerTab)}>
+                    <Link to="/teacher/timetable" className={clsx(styles.headerTab)}>
                         LỊCH CÔNG TÁC
                     </Link>
                 </Box>
