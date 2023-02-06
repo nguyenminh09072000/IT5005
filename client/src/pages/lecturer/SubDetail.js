@@ -24,7 +24,7 @@ export default function DetailSubjectDialog(props) {
 
     const handleClose = () => {
         setOpen(false);
-        console.log(Student);
+        // console.log('aaaaa'+Student);
     };
 
     return (
@@ -118,7 +118,7 @@ export default function DetailSubjectDialog(props) {
                                                 <AccountCircleIcon />
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary={`${sectionId.name}`} secondary={`${sectionId.mssv}`} />
+                                        <ListItemText primary={`${sectionId.studentId}`} secondary={`${sectionId.studentName}`} />
                                     </ListItem>
                                 ))}
                             </List>
