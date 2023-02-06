@@ -34,7 +34,7 @@
         "jsonwebtoken": "^8.5.1",
         "loot-table": "^0.1.0",
         "moment": "^2.29.4",
-        "mongoose": "^6.7.0",
+        "mongoose": "^6.9.0",
         "normalize-mongoose": "^0.0.1",
         "pretier": "^0.0.1",
         "rabbitmq-client": "^3.2.0",
