@@ -26,12 +26,10 @@ function UserInformation(props) {
     // console.log(user);
     // console.log('bbbb' + user.phone);
     const [avatarImg, setAvatarImg] = useState(user.avatarImg);
-    const sid = user.SID;
-    // const fullName = user.fullName;
+    const [sid, setSid] = useState('');
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const gender = user.gender;
-    // const birthday = user.birthday;
     const [birthday, setBirthday] = useState('');
     const schoolYear = user.schoolYear;
     const classs = user.classs;
@@ -117,6 +115,7 @@ function UserInformation(props) {
                 setFullName(data.teacherName); 
                 setBirthday(data.birthday)
                 setEmail(data.username)
+                setSid(data.teacherId)
             } else {
                 // this.Notify('error', 'Delete Error');
             }
@@ -154,10 +153,10 @@ function UserInformation(props) {
                     <div className={clsx(styles.row, styles.formRow)}>
                         <div className={clsx(styles.formLeft)}>
                             <div className={clsx(styles.formRow, styles.row)}>
-                                {role === 'student' && (
+                              
                                     <div className={clsx(styles.formField, styles.col4)}>
                                         <label htmlFor="sid" className={clsx(styles.formLabel, styles.row)}>
-                                            Mã sinh viên:
+                                            Mã Id:
                                         </label>
                                         <input
                                             id="sid"
@@ -168,7 +167,7 @@ function UserInformation(props) {
                                             disabled
                                         />
                                     </div>
-                                )}
+                              
                                 <div className={clsx(styles.formField, styles.col4)}>
                                     <label htmlFor="fullName" className={clsx(styles.formLabel, styles.row)}>
                                         Họ và tên:
