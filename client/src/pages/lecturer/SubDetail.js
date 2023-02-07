@@ -110,7 +110,8 @@ export default function DetailSubjectDialog(props) {
                                 primary={`Student List (` + numSV + ')'}
                                 sx={{ paddingTop: 1, color: 'black', fontWeight: 'bold' }}
                             />
-                            <List sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
+                            
+                            <List sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper' }}>
                                 {Student.map((sectionId) => (
                                     <ListItem>
                                         <ListItemAvatar>
@@ -118,7 +119,9 @@ export default function DetailSubjectDialog(props) {
                                                 <AccountCircleIcon />
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary={`${sectionId.studentId}`} secondary={`${sectionId.studentName}`} />
+                                        <ListItemText sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper' }} primary={`${sectionId.studentId}`} secondary={`${sectionId.studentName}`} />
+                                        <ListItemText sx={{ width: '100%', maxWidth: 150, bgcolor: 'background.paper' }} primary={'Giữa kỳ'} secondary={`${sectionId.midterm}`} />
+                                        <ListItemText sx={{ width: '100%', maxWidth: 150, bgcolor: 'background.paper' }} primary={'Cuối kì '} secondary={`${sectionId.final}`} />
                                     </ListItem>
                                 ))}
                             </List>
