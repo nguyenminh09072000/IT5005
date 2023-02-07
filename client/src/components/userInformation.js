@@ -10,6 +10,7 @@ import MuiAlert from '@mui/material/Alert';
 import ImageUploader from '../components/imageUploader';
 import TokenService from '../service/TokenService';
 import RoleService from '../service/RoleService';
+import GmailService from '../service/GmailService';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -22,20 +23,22 @@ function UserInformation(props) {
     const role = RoleService.getLocalRole();
     const accessToken = TokenService.getLocalAccessToken();
     const user = props.user;
-    console.log(user);
-    console.log(user.phone);
+    // console.log(user);
+    // console.log('bbbb' + user.phone);
     const [avatarImg, setAvatarImg] = useState(user.avatarImg);
     const sid = user.SID;
-    const fullName = user.fullName;
-    const email = user.email;
+    // const fullName = user.fullName;
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
     const gender = user.gender;
-    const birthday = user.birthday;
+    // const birthday = user.birthday;
+    const [birthday, setBirthday] = useState('');
     const schoolYear = user.schoolYear;
     const classs = user.classs;
     const major = user.major;
     const born = user.born;
     const identityNumber = user.identityNumber;
-    const [phone, setPhone] = useState(user.phone);
+    const [phone, setPhone] = useState('');
     console.log(phone);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -91,6 +94,35 @@ function UserInformation(props) {
             setOpen(true);
         }
     }, [errMsg]);
+
+    useEffect(() => {
+        const username = GmailService.getLocalGmail();
+        async function fetchMyAPI() {
+            const response = await fetch(`http://localhost:5000/teacher/get-info`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: TokenService.getLocalAccessToken(),
+                },
+                body: JSON.stringify({
+                    username: username,
+                }),
+            });
+            if (response['status'] === 200) {
+                const data = await response.json();
+                console.log(data);
+                const teacherId = data.teacherId;
+                const teacherName = data.teacherName;
+                setPhone(data.phone);
+                setFullName(data.teacherName); 
+                setBirthday(data.birthday)
+                setEmail(data.username)
+            } else {
+                // this.Notify('error', 'Delete Error');
+            }
+        }
+        fetchMyAPI();
+    }, []);
 
     useEffect(() => {
         if (success === true) {
@@ -164,7 +196,7 @@ function UserInformation(props) {
                                         disabled
                                     />
                                 </div>
-                                <div className={clsx(styles.formField, styles.col4)}>
+                                {/* <div className={clsx(styles.formField, styles.col4)}>
                                     <label htmlFor="identityNumber" className={clsx(styles.formLabel, styles.row)}>
                                         CMND/CCCD:
                                     </label>
@@ -176,7 +208,7 @@ function UserInformation(props) {
                                         type="text"
                                         disabled
                                     />
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className={clsx(styles.formRow, styles.row)}>
@@ -342,7 +374,7 @@ function UserInformation(props) {
                             )}
 
                             <div className={clsx(styles.formRow, styles.row)}>
-                                <div className={clsx(styles.formField, styles.col3)}>
+                                {/* <div className={clsx(styles.formField, styles.col3)}>
                                     <label htmlFor="born" className={clsx(styles.formLabel, styles.row)}>
                                         Quê quán:
                                     </label>
@@ -354,7 +386,7 @@ function UserInformation(props) {
                                         className={clsx(styles.formInput, styles.row)}
                                         disabled
                                     />
-                                </div>
+                                </div> */}
 
                                 <div className={clsx(styles.formField, styles.col3)}>
                                     <label htmlFor="password" className={clsx(styles.formLabel, styles.row)}>
