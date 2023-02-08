@@ -94,6 +94,18 @@ export default function DetailFormDialog(props) {
                         <div>
                             <TextField
                                 required
+                                id="TeacherId"
+                                label="Teacher ID"
+                                defaultValue={TeacherId}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                onChange={(event) => {
+                                    setTeacherId(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                required
                                 id="FullName"
                                 label="Full Name"
                                 defaultValue={FullName}
@@ -106,6 +118,9 @@ export default function DetailFormDialog(props) {
                                 id="User name"
                                 label="User name"
                                 defaultValue={UserName}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
                                 onChange={(event) => {
                                     setUserName(event.target.value);
                                 }}
@@ -136,15 +151,6 @@ export default function DetailFormDialog(props) {
                                     </MenuItem>
                                 ))}
                             </TextField>
-                            {/* <TextField
-                                required
-                                id="TeacherId"
-                                label="Teacher ID"
-                                defaultValue={TeacherId}
-                                onChange={(event) => {
-                                    setTeacherId(event.target.value);
-                                }}
-                            /> */}
 
                             <TextField
                                 required
