@@ -36,8 +36,7 @@ export default function DetailSubjectDialog(props) {
     // };
 
     const handleClose = () => {
-        console.log(Student);
-        console.log('Student');
+        // console.log(Student);
         setOpen(false);
     };
     // const getStuName = () => {
@@ -184,6 +183,7 @@ export default function DetailSubjectDialog(props) {
                                 required
                                 id="MaxSV"
                                 label="MaxSV"
+                                type="number"
                                 defaultValue={MaxSV}
                                 onChange={(event) => {
                                     setMaxSV(event.target.value);
