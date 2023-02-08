@@ -40,11 +40,12 @@ export const createClass = async (req, res) => {
             return res.status(HTTP_STATUS.FORBIDDEN).json({message: 'Invalid role'});
         }
         const {classId, subjectId, teacherId, locationName, classBusyTime, maxSlot} = req.body;
+        // console.log(classId + subjectId + teacherId + locationName + classBusyTime + maxSlot);
         const students = [];
-
         const teacher = await findTeacher({teacherId});
         if (!teacher) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: 'Invalid input'});
+            console.log('Invalid input Teacher ID');
+            return res.json({message: 'Invalid input Teacher ID'});
         }
 
         let {teacherBusyTime} = teacher;

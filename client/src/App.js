@@ -3,14 +3,14 @@ import Login from './pages/Login';
 import Home from './pages/home';
 import StudentAccount from './Accounts/Students/StudentsAccount';
 import LecturerAccount from './Accounts/Lecturers/LecturerAccount';
-// import LecturerHome from './pages/lecturerHome';
-// import LecturerInformation from './pages/lecturerInformation';
+import LecturerHome from './pages/lecturerHome';
+import LecturerInformation from './pages/lecturerInformation';
 // import StudentInformation from './pages/studentInformation';
-// import LecturerTimetable from './pages/lecturerTimetable';
+import LecturerTimetable from './pages/lecturerTimetable';
 import Subject from './Subject/SubjectList';
 import Classs from './Class/ClassList';
 // import Timetable from './pages/student/Timetable';
-// import SubList from './pages/lecturer/Sublist';
+import SubList from './pages/lecturer/Sublist';
 // import Result from './pages/student/Result';
 // import RegisterClass from './pages/student/RegisterClass';
 // import EduProgram from './pages/student/EduProgram';
@@ -37,8 +37,8 @@ function App() {
                         </Home>
                     }
                 ></Route>
-                {/* <Route path="/lecturer/home" element={<LecturerHome />}></Route> */}
-                {/* <Route path="/lecturer/sub" element={<lecSub role="lecturer" />}></Route> */}
+                <Route path="/teacher/home" element={<LecturerHome />}></Route>
+                {/* <Route path="/teacher/sub" element={<lecSub role="teacher" />}></Route> */}
                 <Route
                     path="/admin/home"
                     element={
@@ -49,12 +49,11 @@ function App() {
                 ></Route>
                 <Route path="/student/login" element={<Login role="student" />}></Route>
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
-                <Route path="/lecturer/login" element={<Login role="lecturer" />}></Route>
-                {/* <Route path="/lecturer/information" element={<LecturerInformation />}></Route>
-                <Route path="/student/information" element={<StudentInformation />}></Route> */}
+                <Route path="/teacher/login" element={<Login role="teacher" />}></Route>
+                <Route path="/teacher/information" element={<LecturerInformation />}></Route>
+                {/* <Route path="/student/information" element={<StudentInformation />}></Route> */}
 
-                {/* <Route path="/lecturer/classes" element={<LecturerClasses />}></Route> */}
-                {/* <Route path="/lecturer/timetable" element={<LecturerTimetable />}></Route> */}
+                <Route path="/teacher/timetable" element={<LecturerTimetable />}></Route>
 
                 <Route
                     path="/subjects"
@@ -96,15 +95,15 @@ function App() {
                         </Home>
                     }
                 ></Route> */}
-                {/* <Route
-                    path="/lecturer/sub"
+                <Route
+                    path="/teacher/sub"
                     element={
-                        <Home role="lecturer">
+                        <Home role="teacher">
                             <SubList></SubList>
                         </Home>
                     }
                 ></Route>
-                <Route
+                {/* <Route
                     path="/student/result"
                     element={
                         <Home role="student">

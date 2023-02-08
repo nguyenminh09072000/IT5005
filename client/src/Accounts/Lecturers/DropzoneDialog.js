@@ -31,7 +31,7 @@ export default function DropzoneDialog(props) {
 
                 await axios({
                     method: 'POST',
-                    url: 'http://localhost:5000/lecturer/upload',
+                    url: 'http://localhost:5000/teacher/upload',
                     data: formData,
                     headers: { 'Content-Type': 'multipart/form-data' },
                 })
@@ -54,7 +54,7 @@ export default function DropzoneDialog(props) {
         }
 
         setOpen(false);
-        await fetch('http://localhost:5000/lecturer', {
+        await fetch('http://localhost:5000/teacher', {
             method: 'GET',
             cache: 'no-cache',
             headers: {

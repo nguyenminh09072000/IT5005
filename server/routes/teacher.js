@@ -6,6 +6,7 @@ import {
     getTeacher,
     getTeacherClassList,
     updateTeacher,
+    getTeacherInfo,
 } from '@root/controllers/teacher';
 import {verifyAccessToken} from '@root/middleware/auth';
 
@@ -18,5 +19,6 @@ teacherRouter.post('/create', createTeacher);
 teacherRouter.post('/delete', deleteTeacher);
 teacherRouter.post('/get-class-list', getTeacherClassList);
 teacherRouter.get('/get-all', getAllTeacher);
+teacherRouter.post('/get-info', getTeacherInfo);
 
 export default teacherRouter;

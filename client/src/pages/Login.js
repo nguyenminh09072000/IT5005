@@ -38,7 +38,7 @@ function Login(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization' : 
+                // 'Authorization' :
             },
             body: JSON.stringify({
                 username,
@@ -49,6 +49,7 @@ function Login(props) {
 
         const data = await response.json();
 
+        console.log(data);
         if (data['success'] === true) {
             TokenService.setLocalAccessToken(data['accessToken']);
             RoleService.setLocalRole(role);
@@ -134,8 +135,8 @@ function Login(props) {
                                     >
                                         Login
                                     </button>
-                                    {role === 'student' && <Link to="/lecturer/login"> Are you a lecturer?</Link>}
-                                    {role === 'lecturer' && <Link to="/student/login"> Are you a student?</Link>}
+                                    {role === 'student' && <Link to="/teacher/login"> Are you a teacher?</Link>}
+                                    {role === 'teacher' && <Link to="/student/login"> Are you a student?</Link>}
                                 </div>
                             </form>
                         </div>
@@ -143,7 +144,7 @@ function Login(props) {
                 </div>
                 <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
                     {/* Copyright */}
-                    <div className="text-white mb-3 mb-md-0">__lam__ © 2022</div>
+                    <div className="text-white mb-3 mb-md-0">__namnh__ © 2022</div>
                     {/* Copyright */}
                 </div>
             </section>

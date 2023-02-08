@@ -31,6 +31,7 @@ export const registerAccount = async (req, res) => {
 
 export const login = async (req, res) => {
     const {username, password, role} = req.body;
+    console.log(username + password + role);
     if (!username || !password) {
         return res.status(400).json({success: false, message: 'Missing username or password'});
     }

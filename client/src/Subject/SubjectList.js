@@ -130,20 +130,6 @@ class Subject extends React.Component {
             .catch((error) => {
                 console.error('Error:', error);
             });
-        // fetch("http://localhost:3001/subject")
-        //   .then((res) => res.json())
-        //   .then((data) =>
-        //     this.setState(() => ({
-        //       dataAPI: data.map((obj) => obj["_doc"]),
-        //       rows: data.map((obj, index) => ({
-        //         id: index + 1,
-        //         SubID: obj["_doc"F].SubID,
-        //         SubName: obj["_doc"].SubName,
-        //         Department: obj["_doc"].Department,
-        //         Credit: obj["_doc"].Credit,
-        //       })),
-        //     }))
-        //   );
     }
     saveChange(row, data) {
         this.setState((state) => ({
