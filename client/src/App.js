@@ -38,7 +38,7 @@ function App() {
                     }
                 ></Route>
                 <Route path="/teacher/home" element={<LecturerHome />}></Route>
-                <Route path="/teacher/sub" element={<lecSub role="teacher" />}></Route>
+                {/*<Route path="/teacher/sub" element={<lecSub role="teacher" />}></Route>*/}
                 <Route
                     path="/admin/home"
                     element={
