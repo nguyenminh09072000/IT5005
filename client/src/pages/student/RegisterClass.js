@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import GmailService from '../../service/GmailService';
 import styles from '../CSS/RegisterClassCSS.module.scss';
 import clsx from 'clsx';
+import TokenService from '../../service/TokenService';
 
 const weekdaysMap = {
     monday: 2,
@@ -45,10 +46,11 @@ function RegisterClass() {
             if (hps.includes(hp)) {
                 setError('Mã lớp trùng lặp');
             } else {
-                const response = await fetch('http://localhost:3001/student/getclassdetail', {
+                const response = await fetch('http://localhost:5000/class/get', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        authorization: TokenService.getLocalAccessToken(),
                     },
                     body: JSON.stringify({
                         ClassID: hp,
@@ -57,6 +59,7 @@ function RegisterClass() {
 
                 const data = await response.json();
                 if (data.success === true) {
+                    console.log("success");
                     if (maHps.includes(data['classs'].SubID)) {
                         setError('trùng mã học phần');
                     } else if (checkOverlap(classes, data['classs']) === true) {

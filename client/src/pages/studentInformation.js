@@ -20,7 +20,7 @@ function StudentInformation() {
 
     const handleUpdate = async (email, phone, password, avatarImg) => {
         axios
-            .post('http://localhost:3001/student/update-profile', {
+            .post('http://localhost:3001/student/update', {
                 email: email,
                 PhoneNumber: phone,
                 password: password,
