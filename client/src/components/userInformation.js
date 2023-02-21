@@ -96,6 +96,36 @@ function UserInformation(props) {
     useEffect(() => {
         const username = GmailService.getLocalGmail();
         async function fetchMyAPI() {
+            const response = await fetch(`http://localhost:5000/student/get-info`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: TokenService.getLocalAccessToken(),
+                },
+                body: JSON.stringify({
+                    username: username,
+                }),
+            });
+            if (response['status'] === 200) {
+                const data = await response.json();
+                console.log(data);
+                const studentId = data.studentId;
+                const studentName = data.studentName;
+                setPhone(data.phone);
+                setFullName(data.studentName); 
+                setBirthday(data.birthday)
+                setEmail(data.username)
+                setSid(data.studentId)
+            } else {
+                // this.Notify('error', 'Delete Error');
+            }
+        }
+        fetchMyAPI();
+    }, []);
+
+    useEffect(() => {
+        const username = GmailService.getLocalGmail();
+        async function fetchMyAPI() {
             const response = await fetch(`http://localhost:5000/teacher/get-info`, {
                 method: 'POST',
                 headers: {

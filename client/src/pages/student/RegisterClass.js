@@ -128,8 +128,8 @@ function RegisterClass() {
                             <th>Mã học phần</th>
                             <th>Giảng viên</th>
                             <th>Thứ</th>
-                            <th>Giờ bắt đầu</th>
-                            <th>Giờ kết thúc</th>
+                            {/* <th>Giờ bắt đầu</th>
+                            <th>Giờ kết thúc</th> */}
                             <th>Phòng học</th>
                             <th>Số lượng sinh viên</th>
                             <td>
