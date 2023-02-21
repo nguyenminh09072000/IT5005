@@ -107,7 +107,7 @@ function UserInformation(props) {
                         username: username,
                     }),
                 });
-                console.log(response['status']);
+                // console.log(response['status']);
                 if (response['status'] === 200) {
                     const data = await response.json();
                     console.log(data);

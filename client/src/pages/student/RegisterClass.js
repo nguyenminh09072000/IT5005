@@ -33,6 +33,7 @@ function checkOverlap(arr, classs) {
 function RegisterClass() {
     const [hp, setHp] = useState('');
     const [hps, setHps] = useState([]);
+    const [time, setTime] = useState([]);
     const [maHps, setMaHps] = useState([]);
     const [classes, setClasses] = useState([]);
     const [error, setError] = useState('');
@@ -45,33 +46,42 @@ function RegisterClass() {
         } else {
             if (hps.includes(hp)) {
                 setError('Mã lớp trùng lặp');
+            }
+            if (hps.includes(hp)) {
+                setError('Thời gian học bị trùng lặp');
             } else {
                 const response = await fetch('http://localhost:5000/class/get', {
-                    method: 'GET',
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         authorization: TokenService.getLocalAccessToken(),
                     },
                     body: JSON.stringify({
-                        classID: hp,
+                        classId: hp,
                     }),
                 });
+                // console.log( response);
+                if (response['status'] === 200) {
+                    const data = await response.json();
+                    console.log(data[0]);
+                    // if (maHps.includes(data['classs'].subjectId)) {
+                    //     setError('trùng mã học phần');
+                    // } else if (checkOverlap(classes, data['classs']) === true) {
+                    //     setError('trùng lịch');
+                    // } else {
+                    //     setHps((prev) => [...prev, hp]);
+                    //     setMaHps((prev) => [...prev, data['classs'].SubID]);f
+                    //     setClasses((prev) => [...prev, data['classs']]);
+                    //     setError('1111111');
+                    // }
 
-                const data = await response.json();
-                if (data.success === true) {
-                    console.log("success");
-                    if (maHps.includes(data['classs'].SubID)) {
-                        setError('trùng mã học phần');
-                    } else if (checkOverlap(classes, data['classs']) === true) {
-                        setError('trùng lịch');
-                    } else {
-                        setHps((prev) => [...prev, hp]);
-                        setMaHps((prev) => [...prev, data['classs'].SubID]);
-                        setClasses((prev) => [...prev, data['classs']]);
-                        setError('');
-                    }
+                    setHps((prev) => [...prev, hp]);
+                    setTime((prev) => [...prev, data[0].classBusyTime]);
+                    setMaHps((prev) => [...prev, data[0].subjectId]);
+                    setClasses((prev) => [...prev, data[0]]);
+                    // setError('1111111');
                 } else {
-                    setError('Không tìm thấy mã lớp');
+                    setError('Không tìm thấy mã lớp ' + hp);
                 }
             }
         }
@@ -88,21 +98,50 @@ function RegisterClass() {
 
     async function handleSubmitRegister(event) {
         event.preventDefault();
-        const response = await fetch('http://localhost:3001/student/registerclass', {
+        const username = GmailService.getLocalGmail();
+        const studentId = '';
+        const response1 = await fetch(`http://localhost:5000/student/get-info`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                authorization: TokenService.getLocalAccessToken(),
             },
             body: JSON.stringify({
-                email: GmailService.getLocalGmail(),
-                classes: hps,
+                username: username,
             }),
         });
-        const data = await response.json();
-        if (data.success === true) {
-            setError('Gửi đăng kí thành công');
-        } else {
-            setError(data.message);
+
+        if (response1['status'] === 200) {
+            const data1 = await response1.json();
+            console.log(hps.length);
+
+            var flag = true;
+            for (let i = 0; i < hps.length; i++) {
+                const response = await fetch('http://localhost:5000/class/add-student', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: TokenService.getLocalAccessToken(),
+                    },
+                    body: JSON.stringify({
+                        // classes: hps,
+                        studentId: data1.studentId,
+                        classId: hps[i],
+                    }),
+                });
+                const data = await response.json();
+                console.log(data.message === 'Successfully add student to class');
+                if (data.message === 'Successfully add student to class') {
+                    flag = true;
+                } else {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                setError('Gửi đăng kí thành công');
+            } else {
+                setError('Gửi đăng kí thất bại');
+            }
         }
     }
 
@@ -128,11 +167,12 @@ function RegisterClass() {
                             <th>Mã học phần</th>
                             <th>Tên môn học</th>
                             <th>Giảng viên</th>
-                            {/* <th>Thứ</th> */}
+                            <th>Thời gian học</th>
                             {/* <th>Giờ bắt đầu</th>
                             <th>Giờ kết thúc</th> */}
                             <th>Phòng học</th>
-                            <th>Số lượng sinh viên</th>
+                            <th>Số lượng sinh viên đăng ký</th>
+                            <th>Số lượng sinh viên tối đa</th>
                             <td>
                                 <div className={clsx(styles.addSpace)}>&nbsp;</div>
                             </td>
@@ -141,14 +181,16 @@ function RegisterClass() {
                     <tbody>
                         {classes.map((classs, index) => (
                             <tr key={index}>
-                                <td>{classs.ClassID}</td>
-                                <td>{classs.SubID}</td>
-                                <td>{classs.LecID}</td>
-                                <td>{weekdaysMap[classs.Day.toLowerCase()]}</td>
-                                <td>{classs.StartTime}</td>
-                                <td>{classs.EndTime}</td>
-                                <td>{classs.Room}</td>
-                                <td>{classs.MaxSV}</td>
+                                <td>{classs.classId}</td>
+                                <td>{classs.subjectId}</td>
+                                <td>{classs.subjectId}</td>
+                                <td>{classs.teacherId}</td>
+                                <td>{classs.classBusyTime}</td>
+                                {/* <td>{classs.classBusyTime}</td>
+                                <td>{classs.classBusyTime}</td> */}
+                                <td>{classs.locationName}</td>
+                                <td>{classs.students.length}</td>
+                                <td>{classs.maxSlot}</td>
                                 <td>
                                     <Button onClick={(event) => handleDelete(event, index)}>
                                         <DeleteIcon className={clsx(styles.icon)} />
