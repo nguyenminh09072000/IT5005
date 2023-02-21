@@ -22,13 +22,16 @@ export default function DetailSubjectDialog(props) {
                 authorization: TokenService.getLocalAccessToken(),
             },
             body: JSON.stringify({
+                updateInfo: {
+                    subjectName: SubName,
+                    // "Department": Department,
+                    credit: Credit,
+                },
                 subjectId: SubID,
-                subjectName: SubName,
-                // "Department": Department,
-                credit: Credit,
             }),
         });
 
+        console.log(response['status']);
         const data = await response.json();
         if (response['status'] === 200) {
             props.Modify(
