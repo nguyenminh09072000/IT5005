@@ -47,13 +47,13 @@ function RegisterClass() {
                 setError('Mã lớp trùng lặp');
             } else {
                 const response = await fetch('http://localhost:5000/class/get', {
-                    method: 'POST',
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         authorization: TokenService.getLocalAccessToken(),
                     },
                     body: JSON.stringify({
-                        ClassID: hp,
+                        classID: hp,
                     }),
                 });
 
@@ -126,8 +126,9 @@ function RegisterClass() {
                         <tr>
                             <th>Mã lớp</th>
                             <th>Mã học phần</th>
+                            <th>Tên môn học</th>
                             <th>Giảng viên</th>
-                            <th>Thứ</th>
+                            {/* <th>Thứ</th> */}
                             {/* <th>Giờ bắt đầu</th>
                             <th>Giờ kết thúc</th> */}
                             <th>Phòng học</th>
