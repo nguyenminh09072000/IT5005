@@ -21,7 +21,6 @@ const columns = [
         type: 'number',
         width: 110,
     },
-
     {
         field: 'Mark',
         headerName: 'Điểm học phần',
@@ -45,7 +44,6 @@ const rows = [
     { term: '20202', id: 'IT3120', SubName: 'Phân tích thiết kế hệ thống', credit: 2, Mark: 'B+' },
     { term: '20202', id: 'IT2030', SubName: 'Technical Writing and Presentation', credit: 3, Mark: 'A' },
     { term: '20202', id: 'ED3220', SubName: 'Kỹ năng mềm', credit: 2, Mark: 'A' },
-
 ];
 
 function Result() {

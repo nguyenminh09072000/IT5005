@@ -662,15 +662,9 @@ export default function EduProgram() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-<<<<<<< HEAD
-                        {rows.map((row) => (
-                            <Row key={row.name} row={row} />
-                        ))}
-=======
                         {/* {rows.map((row) => (
                             <Row key={row.name} row={row} />
                         ))} */}
->>>>>>> 32abf29a691a4c5dbd1e5ab2bf34c3a73376077c
                     </TableBody>
                 </Table>
             </TableContainer>
