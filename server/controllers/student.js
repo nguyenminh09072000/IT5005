@@ -25,7 +25,6 @@ export const getStudent = async (req, res) => {
 
 export const getStudentinfo = async (req, res) => {
     try {
-       
         const {username} = req.body;
         const filter = {username};
         const data = await findStudent(filter);
@@ -35,7 +34,6 @@ export const getStudentinfo = async (req, res) => {
         res.status(500).json(error);
     }
 };
-
 
 export const updateStudent = async (req, res) => {
     try {
@@ -86,16 +84,17 @@ export const deleteStudent = async (req, res) => {
 
 export const getStudentClassList = async (req, res) => {
     try {
-        const {role} = req;
-        if (role !== ROLES.ADMIN) {
-            return res.json({message: 'Invalid role'});
-        }
+        // const {role} = req;
+        // if (role !== ROLES.ADMIN) {
+        //     return res.json({message: 'Invalid role'});
+        // }
         const {studentId} = req.body;
         const student = await findStudent({studentId});
 
+       
         const classIDs = student.classes;
         const classList = [];
-
+        console.log(classIDs);
         for (const ele of classIDs) {
             const classInfo = await findClass({classId: ele});
 
@@ -104,6 +103,7 @@ export const getStudentClassList = async (req, res) => {
                 const studentInClass = classStudent.filter(
                     element => element.studentId === studentId
                 );
+                console.log(studentInClass);
                 classList.push({
                     classId: ele,
                     subjectId: classInfo[0].subjectId,
@@ -115,8 +115,10 @@ export const getStudentClassList = async (req, res) => {
                 });
             }
         }
+        console.log(classList);
         return res.json(classList);
     } catch (error) {
+        console.log(error);
         res.status(500).json(error);
     }
 };

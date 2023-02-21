@@ -130,7 +130,7 @@ function RegisterClass() {
                     }),
                 });
                 const data = await response.json();
-                console.log(data.message === 'Successfully add student to class');
+                console.log(data.message);
                 if (data.message === 'Successfully add student to class') {
                     flag = true;
                 } else {
