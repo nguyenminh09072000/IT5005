@@ -5,15 +5,15 @@ import StudentAccount from './Accounts/Students/StudentsAccount';
 import LecturerAccount from './Accounts/Lecturers/LecturerAccount';
 import LecturerHome from './pages/lecturerHome';
 import LecturerInformation from './pages/lecturerInformation';
-// import StudentInformation from './pages/studentInformation';
+import StudentInformation from './pages/studentInformation';
 import LecturerTimetable from './pages/lecturerTimetable';
 import Subject from './Subject/SubjectList';
 import Classs from './Class/ClassList';
-// import Timetable from './pages/student/Timetable';
+import Timetable from './pages/student/Timetable';
 import SubList from './pages/lecturer/Sublist';
-// import Result from './pages/student/Result';
-// import RegisterClass from './pages/student/RegisterClass';
-// import EduProgram from './pages/student/EduProgram';
+import Result from './pages/student/Result';
+import RegisterClass from './pages/student/RegisterClass';
+import EduProgram from './pages/student/EduProgram';
 import ImageSlider from './components/imageSlider';
 //  a0b337e8c685cc41b686c2136b2a9b531e2bc5c7
 
@@ -51,7 +51,7 @@ function App() {
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
                 <Route path="/teacher/login" element={<Login role="teacher" />}></Route>
                 <Route path="/teacher/information" element={<LecturerInformation />}></Route>
-                {/* <Route path="/student/information" element={<StudentInformation />}></Route> */}
+                <Route path="/student/information" element={<StudentInformation />}></Route>
 
                 <Route path="/teacher/timetable" element={<LecturerTimetable />}></Route>
 
@@ -87,14 +87,14 @@ function App() {
                         </Home>
                     }
                 ></Route>
-                {/* <Route
+                <Route
                     path="/student/timetable"
                     element={
                         <Home role="student">
                             <Timetable></Timetable>
                         </Home>
                     }
-                ></Route> */}
+                ></Route>
                 <Route
                     path="/teacher/sub"
                     element={
@@ -103,7 +103,7 @@ function App() {
                         </Home>
                     }
                 ></Route>
-                {/* <Route
+                <Route
                     path="/student/result"
                     element={
                         <Home role="student">
@@ -118,15 +118,15 @@ function App() {
                             <RegisterClass></RegisterClass>
                         </Home>
                     }
-                ></Route> */}
-                {/* <Route
+                ></Route>
+                <Route
                     path="/student/eduprogram"
                     element={
                         <Home role="student">
                             <EduProgram></EduProgram>
                         </Home>
                     }
-                ></Route> */}
+                ></Route>
             </Routes>
         </Router>
     );
