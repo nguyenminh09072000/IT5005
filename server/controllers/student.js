@@ -23,6 +23,20 @@ export const getStudent = async (req, res) => {
     }
 };
 
+export const getStudentinfo = async (req, res) => {
+    try {
+       
+        const {username} = req.body;
+        const filter = {username};
+        const data = await findStudent(filter);
+        // console.log('a' + data)
+        return res.json(data);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+
 export const updateStudent = async (req, res) => {
     try {
         const {role} = req;

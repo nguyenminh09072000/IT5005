@@ -96,30 +96,56 @@ function UserInformation(props) {
     useEffect(() => {
         const username = GmailService.getLocalGmail();
         async function fetchMyAPI() {
-            const response = await fetch(`http://localhost:5000/teacher/get-info`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: TokenService.getLocalAccessToken(),
-                },
-                body: JSON.stringify({
-                    username: username,
-                }),
-            });
-            if (response['status'] === 200) {
-                const data = await response.json();
-                console.log(data);
-                const teacherId = data.teacherId;
-                const teacherName = data.teacherName;
-                setPhone(data.phone);
-                setFullName(data.teacherName); 
-                setBirthday(data.birthday)
-                setEmail(data.username)
-                setSid(data.teacherId)
+            if (role === 'student') {
+                const response = await fetch(`http://localhost:5000/student/get-info`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: TokenService.getLocalAccessToken(),
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                    }),
+                });
+                // console.log(response['status']);
+                if (response['status'] === 200) {
+                    const data = await response.json();
+                    console.log(data);
+                    setPhone(data.phone);
+                    setFullName(data.studentName);
+                    setBirthday(data.birthday);
+                    setEmail(data.username);
+                    setSid(data.studentId);
+                } else {
+                    // this.Notify('error', 'Delete Error');
+                }
             } else {
-                // this.Notify('error', 'Delete Error');
+                const response = await fetch(`http://localhost:5000/teacher/get-info`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: TokenService.getLocalAccessToken(),
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                    }),
+                });
+                if (response['status'] === 200) {
+                    const data = await response.json();
+                    console.log(data);
+                    const teacherId = data.teacherId;
+                    const teacherName = data.teacherName;
+                    setPhone(data.phone);
+                    setFullName(data.teacherName);
+                    setBirthday(data.birthday);
+                    setEmail(data.username);
+                    setSid(data.teacherId);
+                } else {
+                    // this.Notify('error', 'Delete Error');
+                }
             }
         }
+
         fetchMyAPI();
     }, []);
 
@@ -153,21 +179,20 @@ function UserInformation(props) {
                     <div className={clsx(styles.row, styles.formRow)}>
                         <div className={clsx(styles.formLeft)}>
                             <div className={clsx(styles.formRow, styles.row)}>
-                              
-                                    <div className={clsx(styles.formField, styles.col4)}>
-                                        <label htmlFor="sid" className={clsx(styles.formLabel, styles.row)}>
-                                            Mã Id:
-                                        </label>
-                                        <input
-                                            id="sid"
-                                            name="sid"
-                                            value={sid}
-                                            type="text"
-                                            className={clsx(styles.formInput, styles.row)}
-                                            disabled
-                                        />
-                                    </div>
-                              
+                                <div className={clsx(styles.formField, styles.col4)}>
+                                    <label htmlFor="sid" className={clsx(styles.formLabel, styles.row)}>
+                                        Mã Id:
+                                    </label>
+                                    <input
+                                        id="sid"
+                                        name="sid"
+                                        value={sid}
+                                        type="text"
+                                        className={clsx(styles.formInput, styles.row)}
+                                        disabled
+                                    />
+                                </div>
+
                                 <div className={clsx(styles.formField, styles.col4)}>
                                     <label htmlFor="fullName" className={clsx(styles.formLabel, styles.row)}>
                                         Họ và tên:
@@ -328,7 +353,7 @@ function UserInformation(props) {
                                 </div>
                             </div>
 
-                            {role === 'student' && (
+                            {/* {role === 'student' && (
                                 <div className={clsx(styles.formRow, styles.row)}>
                                     <div className={clsx(styles.formField, styles.col3)}>
                                         <label htmlFor="major" className={clsx(styles.formLabel, styles.row)}>
@@ -370,7 +395,7 @@ function UserInformation(props) {
                                         />
                                     </div>
                                 </div>
-                            )}
+                            )} */}
 
                             <div className={clsx(styles.formRow, styles.row)}>
                                 {/* <div className={clsx(styles.formField, styles.col3)}>

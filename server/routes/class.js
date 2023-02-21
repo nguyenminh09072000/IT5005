@@ -15,7 +15,7 @@ import {verifyAccessToken} from '@root/middleware/auth';
 const classRouter = express.Router();
 classRouter.use(verifyAccessToken);
 
-classRouter.get('/get', getClass);
+classRouter.post('/get', getClass);
 classRouter.post('/update', updateClass);
 classRouter.post('/create', createClass);
 classRouter.post('/delete', deleteClass);

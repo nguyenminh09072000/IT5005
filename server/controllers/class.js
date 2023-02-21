@@ -11,9 +11,13 @@ import {findLocationAndUpdate, getLocationList} from '@root/repository/locationR
 
 export const getClass = async (req, res) => {
     try {
-        const {classId} = req.query;
-        const classInfo = await findClass({classId});
-        return res.json(classInfo);
+        const {classId} = req.body;
+        const data = await findClass({classId});
+        console.log(data.length);
+        if (data.length === 0) {
+            throw new Error('Không tìm thấy mã lớp ' + classId);
+        }
+        return res.json(data);
     } catch (error) {
         res.status(500).json(error);
     }
@@ -217,6 +221,9 @@ export const deleteStudentFromClass = async (req, res) => {
 export const addStudentToClass = async (req, res) => {
     try {
         const {studentId, classId} = req.body;
+        console.log('studentId ' + studentId);
+        console.log('classId' + classId);
+
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;
         const student = await findStudent({studentId});

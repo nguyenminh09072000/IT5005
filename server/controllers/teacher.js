@@ -23,7 +23,7 @@ export const getTeacherInfo = async (req, res) => {
     try {
         const {username} = req.body;
         const data = await findTeacher({username});
-        console.log(data);
+        // console.log(username);
         return res.json(data);
     } catch (error) {
         res.status(500).json(error);
