@@ -74,7 +74,7 @@ export default function SubjectDialog(props) {
                     maxSlot: MaxSV,
                 },
             );
-            // setOpen(false);
+            setOpen(false);
             props.notify('success', 'Create Class successfully!');
         } else {
             props.Notify('error', 'Create Class Error!!!');
