@@ -38,9 +38,9 @@ class Result extends React.Component{
                 }),
             }); 
             if (response1['status'] === 200) {
-                const data1 = response1.json();
+                const data1 = await response1.json();
                 console.log(data1.studentId);
-                fetch('http://localhost:5000/student/get-class-list', {
+                await fetch('http://localhost:5000/student/get-class-list', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
