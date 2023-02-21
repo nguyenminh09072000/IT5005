@@ -5,6 +5,13 @@ import {
     findStudent,
     findStudentAndUpdate,
 } from '@root/repository/studentRepository';
+import {
+    findSubject,
+    createNewSubject,
+    findSubjectAndUpdate,
+    findAndDeleteSubject,
+    findListSubject,
+} from '@root/repository/subjectRepository';
 import {findClass} from '@root/repository/classRepository';
 import {ROLES} from '@root/utils/constant';
 
@@ -91,7 +98,6 @@ export const getStudentClassList = async (req, res) => {
         const {studentId} = req.body;
         const student = await findStudent({studentId});
 
-       
         const classIDs = student.classes;
         const classList = [];
         console.log(classIDs);
@@ -103,19 +109,23 @@ export const getStudentClassList = async (req, res) => {
                 const studentInClass = classStudent.filter(
                     element => element.studentId === studentId
                 );
-                console.log(studentInClass);
+                // console.log(studentInClass);
+                console.log(classInfo[0].subjectId);
+                const subjectId = classInfo[0].subjectId;
+                const subject = await findSubject({subjectId});
+                console.log(subject.subjectName);
                 classList.push({
                     classId: ele,
                     subjectId: classInfo[0].subjectId,
-                    subjectName: classInfo[0].subjectName,
+                    subjectName: subject.subjectName,
                     midterm: studentInClass[0].midterm,
+                    term: subject.credit,
                     final: studentInClass[0].final,
                     locationName: classInfo[0].locationName,
                     classBusyTime: classInfo[0].classBusyTime,
                 });
             }
         }
-        console.log(classList);
         return res.json(classList);
     } catch (error) {
         console.log(error);

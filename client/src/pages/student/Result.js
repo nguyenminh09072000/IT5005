@@ -92,64 +92,7 @@ function Result() {
         fetchMyAPI();
     }, []);
 
-    async function handleSubmitRegister(event) {
-        event.preventDefault();
-        const username = GmailService.getLocalGmail();
-        const response1 = await fetch(`http://localhost:5000/student/get-info`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: TokenService.getLocalAccessToken(),
-            },
-            body: JSON.stringify({
-                username: username,
-            }),
-        });
-
-        if (response1['status'] === 200) {
-            const data1 = await response1.json();
-            console.log(data1.studentId);
-            const response = await fetch('http://localhost:5000/student/get-class-list', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: TokenService.getLocalAccessToken(),
-                },
-                body: JSON.stringify({
-                    // classes: hps,
-                    studentId: data1.studentId,
-                }),
-            });
-            // var flag = true;
-            // for (let i = 0; i < hps.length; i++) {
-            //     const response = await fetch('http://localhost:5000/class/add-student', {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             authorization: TokenService.getLocalAccessToken(),
-            //         },
-            //         body: JSON.stringify({
-            //             // classes: hps,
-            //             studentId: data1.studentId,
-            //             classId: hps[i],
-            //         }),
-            //     });
-            //     const data = await response.json();
-            //     console.log(data.message === 'Successfully add student to class');
-            //     if (data.message === 'Successfully add student to class') {
-            //         flag = true;
-            //     } else {
-            //         flag = false;
-            //     }
-            // }
-            // if (flag) {
-            //     setError('Gửi đăng kí thành công');
-            // } else {
-            //     setError('Gửi đăng kí thất bại');
-            // }
-        }
-    }
-
+    
     return (
         <Container maxWidth="md" sx={{ mt: 5, mb: 5 }}>
             <Box sx={{ height: 'auto', width: '100%' }}>
