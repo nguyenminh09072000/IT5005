@@ -21,13 +21,13 @@ function LecturerClasses(props) {
         axios
             .post('http://localhost:3001/teacher/getClasses', { email: GmailService.getLocalGmail() })
             .then((res) => {
-                // console.log(res.data.data)
+                console.log(res.data.data)
                 setData(res.data.data);
             })
             .catch((err) => console.log(err));
     }, []);
 
-    //data table
+
     const columns = [
         {
             name: 'SubID',
