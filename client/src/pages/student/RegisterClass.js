@@ -145,6 +145,55 @@ function RegisterClass() {
         }
     }
 
+    async function handleSubmitDelete(event) {
+        event.preventDefault();
+        const username = GmailService.getLocalGmail();
+        const studentId = '';
+        const response1 = await fetch(`http://localhost:5000/student/get-info`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: TokenService.getLocalAccessToken(),
+            },
+            body: JSON.stringify({
+                username: username,
+            }),
+        });
+
+        if (response1['status'] === 200) {
+            const data1 = await response1.json();
+            console.log(hps.length);
+
+            var flag = true;
+            for (let i = 0; i < hps.length; i++) {
+                const response = await fetch('http://localhost:5000/class/delete-student', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: TokenService.getLocalAccessToken(),
+                    },
+                    body: JSON.stringify({
+                        // classes: hps,
+                        studentId: data1.studentId,
+                        classId: hps[i],
+                    }),
+                });
+                const data = await response.json();
+                console.log(data.message);
+                if (data.message === 'Successfully delete student from class') {
+                    flag = false;
+                } else {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                setError('Hủy đăng kí thành công');
+            } else {
+                setError('Hủy đăng kí thất bại');
+            }
+        }
+    }
+
     return (
         <div className={clsx(styles.pageContent)}>
             <h2 className={clsx(styles.pageTitle)}>Đăng ký học tập</h2>
@@ -203,6 +252,9 @@ function RegisterClass() {
                 <div className={clsx(styles.pageFooter)}>
                     <button className={clsx(styles.btn, styles.primary)} onClick={handleSubmitRegister}>
                         Gửi đăng ký
+                    </button>
+                    <button className={clsx(styles.btn, styles.primary)} onClick={handleSubmitDelete}>
+                        Hủy đăng ký
                     </button>
                 </div>
             </div>

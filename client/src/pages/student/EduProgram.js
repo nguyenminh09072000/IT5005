@@ -8,11 +8,11 @@ class EduProgram extends React.Component{
         super(props);
         this.state = {
             columns: [
-                { field: 'id', headerName: 'Index', width: 70 },
-                { field: 'SubID', headerName: 'SubID', width: 230 },
-                { field: 'SubName', headerName: 'Sub Name', width: 380 },
+                { field: 'id', headerName: 'Index', width: 100 },
+                { field: 'SubID', headerName: 'Mã học phần', width: 300 },
+                { field: 'SubName', headerName: 'Tên học phần', width: 380 },
                 // { field: 'Department', headerName: 'Department', width: 320 },
-                { field: 'Credit', headerName: 'Credit', width: 200 },
+                { field: 'Credit', headerName: 'TC', width: 250 },
             ],
             count: 0,
             rows: [],
