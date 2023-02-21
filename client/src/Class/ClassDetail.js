@@ -16,35 +16,34 @@ export default function DetailSubjectDialog(props) {
     const [Student, setStudent] = React.useState(props.classs.students);
     const StudentName = [];
 
-    const getStudentName = async (e) => {
-        // don't select this row after clicking
+    // const getStudentName = async (e) => {
+    //     // don't select this row after clicking
 
-        const response = await fetch(`http://localhost:3001/subject/getStudent/${e}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response['status'] === 200) {
-            const data = await response.json();
+    //     const response = await fetch(`http://localhost:3001/subject/getStudent/${e}`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     });
+    //     if (response['status'] === 200) {
+    //         const data = await response.json();
 
-            StudentName.push(data[0]['FullName']);
-        } else {
-            this.Notify('error', 'Delete Error');
-            console.log('ko xoa dc');
-        }
-    };
+    //         StudentName.push(data[0]['FullName']);
+    //     } else {
+    //         this.Notify('error', 'Delete Error');
+    //         console.log('ko xoa dc');
+    //     }
+    // };
 
     const handleClose = () => {
-        console.log(Student);
-        console.log('Student');
+        // console.log(Student);
         setOpen(false);
     };
-    const getStuName = () => {
-        Student.forEach((element) => {
-            console.log(getStudentName(element));
-        });
-    };
+    // const getStuName = () => {
+    //     Student.forEach((element) => {
+    //         console.log(getStudentName(element));
+    //     });
+    // };
 
     const handleModify = async () => {
         const response = await fetch('http://localhost:5000/class/update', {
@@ -184,6 +183,7 @@ export default function DetailSubjectDialog(props) {
                                 required
                                 id="MaxSV"
                                 label="MaxSV"
+                                type="number"
                                 defaultValue={MaxSV}
                                 onChange={(event) => {
                                     setMaxSV(event.target.value);

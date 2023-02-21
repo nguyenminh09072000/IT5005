@@ -4,6 +4,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import GmailService from '../../service/GmailService';
 import styles from '../CSS/RegisterClassCSS.module.scss';
 import clsx from 'clsx';
+<<<<<<< HEAD
+=======
+import TokenService from '../../service/TokenService';
+>>>>>>> 32abf29a691a4c5dbd1e5ab2bf34c3a73376077c
 
 const weekdaysMap = {
     monday: 2,
@@ -45,18 +49,22 @@ function RegisterClass() {
             if (hps.includes(hp)) {
                 setError('Mã lớp trùng lặp');
             } else {
-                const response = await fetch('http://localhost:3001/student/getclassdetail', {
-                    method: 'POST',
+
+                const response = await fetch('http://localhost:5000/class/get', {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
+                        authorization: TokenService.getLocalAccessToken(),
                     },
                     body: JSON.stringify({
-                        ClassID: hp,
+                        classID: hp,
                     }),
                 });
 
                 const data = await response.json();
                 if (data.success === true) {
+
+                    console.log("success");
                     if (maHps.includes(data['classs'].SubID)) {
                         setError('trùng mã học phần');
                     } else if (checkOverlap(classes, data['classs']) === true) {
@@ -123,10 +131,7 @@ function RegisterClass() {
                         <tr>
                             <th>Mã lớp</th>
                             <th>Mã học phần</th>
-                            <th>Giảng viên</th>
-                            <th>Thứ</th>
-                            <th>Giờ bắt đầu</th>
-                            <th>Giờ kết thúc</th>
+
                             <th>Phòng học</th>
                             <th>Số lượng sinh viên</th>
                             <td>

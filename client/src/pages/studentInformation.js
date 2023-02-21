@@ -20,7 +20,7 @@ function StudentInformation() {
 
     const handleUpdate = async (email, phone, password, avatarImg) => {
         axios
-            .post('http://localhost:3001/student/update-profile', {
+            .post('http://localhost:5000/student/update', {
                 email: email,
                 PhoneNumber: phone,
                 password: password,
@@ -36,33 +36,33 @@ function StudentInformation() {
             });
     };
 
-    useEffect(() => {
-        axios
-            .post('http://localhost:3001/student/profile', { email: email })
-            .then((res) => {
-                console.log(res);
-                const data = res.data.data;
-                console.log(res.data.data);
-                const stu = {
-                    SID: data.SID,
-                    schoolYear: data.SchoolYear,
-                    major: data.Major,
-                    classs: data.Class,
-                    avatarImg: data.avatarUrl,
-                    fullName: data.FullName,
-                    email: data.Email,
-                    gender: data.Sex,
-                    born: data.Born,
-                    identityNumber: data.IdentityNumber,
-                    birthday: data.DateOfBirth,
-                    phone: data.PhoneNumber,
-                };
-                setUser(stu);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .post('http://localhost:3001/student/profile', { email: email })
+    //         .then((res) => {
+    //             console.log(res);
+    //             const data = res.data.data;
+    //             console.log(res.data.data);
+    //             const stu = {
+    //                 SID: data.SID,
+    //                 schoolYear: data.SchoolYear,
+    //                 major: data.Major,
+    //                 classs: data.Class,
+    //                 avatarImg: data.avatarUrl,
+    //                 fullName: data.FullName,
+    //                 email: data.Email,
+    //                 gender: data.Sex,
+    //                 born: data.Born,
+    //                 identityNumber: data.IdentityNumber,
+    //                 birthday: data.DateOfBirth,
+    //                 phone: data.PhoneNumber,
+    //             };
+    //             setUser(stu);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // }, []);
 
     if (!accessToken) {
         return <Navigate to="/student/login" />;
@@ -83,4 +83,3 @@ function StudentInformation() {
 }
 
 export default StudentInformation;
-

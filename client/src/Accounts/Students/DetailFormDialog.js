@@ -100,15 +100,18 @@ export default function DetailFormDialog(props) {
                         autoComplete="off"
                     >
                         <div>
-                            {/* <TextField
+                            <TextField
                                 required
                                 id="StudentId"
                                 label="Student ID"
                                 defaultValue={StudentId}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
                                 onChange={(event) => {
                                     setStudentId(event.target.value);
                                 }}
-                            /> */}
+                            />
                             <TextField
                                 required
                                 id="FullName"
@@ -149,6 +152,9 @@ export default function DetailFormDialog(props) {
                                 id="User name"
                                 label="User name"
                                 defaultValue={UserName}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
                                 onChange={(event) => {
                                     setUserName(event.target.value);
                                 }}

@@ -31,6 +31,7 @@ export default function SubjectDialog(props) {
     };
 
     const handleSave = async () => {
+        // console.log(StartTime);
         const response = await fetch('http://localhost:5000/class/create', {
             method: 'POST',
             headers: {
@@ -73,9 +74,8 @@ export default function SubjectDialog(props) {
                     maxSlot: MaxSV,
                 },
             );
-            setOpen(false);
+            // setOpen(false);
             props.notify('success', 'Create Class successfully!');
-            
         } else {
             props.Notify('error', 'Create Class Error!!!');
         }
@@ -141,7 +141,6 @@ export default function SubjectDialog(props) {
                             <TextField
                                 id="StartTime"
                                 label="StartTime"
-                                type="number"
                                 onChange={(event) => {
                                     setStartTime(event.target.value);
                                 }}
