@@ -6,6 +6,7 @@ import {
     getStudent,
     getStudentClassList,
     updateStudent,
+    getStudentinfo,
 } from '@root/controllers/student';
 import {verifyAccessToken} from '@root/middleware/auth';
 
@@ -18,5 +19,5 @@ studentRouter.post('/create', createStudent);
 studentRouter.post('/delete', deleteStudent);
 studentRouter.post('/get-class-list', getStudentClassList);
 studentRouter.get('/get-all', getAllStudent);
-
+studentRouter.post('/get-info', getStudentinfo);
 export default studentRouter;
