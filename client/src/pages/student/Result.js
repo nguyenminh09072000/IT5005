@@ -11,7 +11,7 @@ class Result extends React.Component{
         this.state = {
             columns: [
                 { field: 'id', headerName: 'Index', width: 100 },
-                { field: 'SubId', headerName: 'Mã học phần', width: 150 },
+                { field: 'SubID', headerName: 'Mã học phần', width: 150 },
                 { field: 'SubName', headerName: 'Tên học phần', width: 250 },
                 { field: 'credit', headerName: 'TC', width: 100 },
                 { field: 'Midterm', headerName: 'Điểm giữa kỳ', width: 100 },
