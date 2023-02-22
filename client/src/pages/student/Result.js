@@ -50,25 +50,25 @@ class Result extends React.Component{
                         studentId: data1.studentId,
                     }),
                 })
-                    // .then((response) => response.json())
-                    // .then((data) =>
-                    //     this.setState(() => ({
-                    //         dataAPI: data.map((obj) => obj),
-                    //         rows: data.map((obj, index) => ({
-                    //             id: index + 1,
-                    //             SubID: obj?.subjectId,
-                    //             SubName: obj?.subjectName,
-                    //             Midterm: obj?.midterm,
-                    //             credit: obj?.term,
-                    //             Finalterm: obj?.final,
-                    //             //locationName: obj?.locationName,
+                    .then((response) => response.json())
+                    .then((data) =>
+                        this.setState(() => ({
+                            dataAPI: data.map((obj) => obj),
+                            rows: data.map((obj, index) => ({
+                                id: index + 1,
+                                SubID: obj?.subjectId,
+                                SubName: obj?.subjectName,
+                                credit: obj?.term,
+                                Midterm: obj?.midterm,
+                                Finalterm: obj?.final,
+                                //locationName: obj?.locationName,
                                 
-                    //         })),
-                    //     })),
-                    // )
-                    // .catch((error) => {
-                    //     console.error('Error:', error);
-                    // });
+                            })),
+                        })),
+                    )
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
             }
             
     }
