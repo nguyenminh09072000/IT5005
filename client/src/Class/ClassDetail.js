@@ -14,8 +14,10 @@ export default function DetailSubjectDialog(props) {
     const [Room, setRoom] = React.useState(props.classs.locationName);
     const [MaxSV, setMaxSV] = React.useState(props.classs.maxSlot);
     const [Student, setStudent] = React.useState(props.classs.students);
+    const [flex, setFlex] = React.useState(false);
     const StudentName = [];
 
+    console.log(typeof StartTime);
     // const getStudentName = async (e) => {
     //     // don't select this row after clicking
 
@@ -46,26 +48,54 @@ export default function DetailSubjectDialog(props) {
     // };
 
     const handleModify = async () => {
-        const response = await fetch('http://localhost:5000/class/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: TokenService.getLocalAccessToken(),
-            },
-            body: JSON.stringify({
-                classId: ClassID,
-                updateInfo: {
-                    teacherId: LecID,
-                    subjectId: SubID,
-                    // Day: Day,
-                    locationName: Room,
-                    classBusyTime: [StartTime],
-                    // "EndTime": EndTime,
-                    maxSlot: MaxSV,
-                    // Student: Student,
+        console.log(StartTime);
+        let response;
+        if (flex) {
+            let arr = StartTime.split(',');
+            console.log(arr);
+            console.log(flex);
+            response = await fetch('http://localhost:5000/class/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: TokenService.getLocalAccessToken(),
                 },
-            }),
-        });
+                body: JSON.stringify({
+                    classId: ClassID,
+                    updateInfo: {
+                        teacherId: LecID,
+                        subjectId: SubID,
+                        // Day: Day,
+                        locationName: Room,
+                        classBusyTime: arr,
+                        // "EndTime": EndTime,
+                        maxSlot: MaxSV,
+                        // Student: Student,
+                    },
+                }),
+            });
+        } else {
+            response = await fetch('http://localhost:5000/class/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: TokenService.getLocalAccessToken(),
+                },
+                body: JSON.stringify({
+                    classId: ClassID,
+                    updateInfo: {
+                        teacherId: LecID,
+                        subjectId: SubID,
+                        // Day: Day,
+                        locationName: Room,
+                        // classBusyTime: arr,
+                        // "EndTime": EndTime,
+                        maxSlot: MaxSV,
+                        // Student: Student,
+                    },
+                }),
+            });
+        }
 
         const data = await response.json();
         if (response['status'] === 200) {
@@ -152,7 +182,7 @@ export default function DetailSubjectDialog(props) {
                                     setRoom(event.target.value);
                                 }}
                             />
-                            <TextField
+                            {/* <TextField
                                 required
                                 id="Day"
                                 label="Day"
@@ -160,7 +190,7 @@ export default function DetailSubjectDialog(props) {
                                 onChange={(event) => {
                                     setDay(event.target.value);
                                 }}
-                            />
+                            /> */}
                             <TextField
                                 required
                                 id="StartTime"
@@ -168,6 +198,7 @@ export default function DetailSubjectDialog(props) {
                                 defaultValue={StartTime}
                                 onChange={(event) => {
                                     setStartTime(event.target.value);
+                                    setFlex(true);
                                 }}
                             />
                             {/* <TextField 

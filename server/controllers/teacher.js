@@ -78,7 +78,7 @@ export const getTeacherClassList = async (req, res) => {
     try {
         const {teacherId} = req.body;
         const classList = await findClass({teacherId});
-        console.log(classList);
+        // console.log(classList);
         return res.json(classList);
     } catch (error) {
         res.status(500).json(error);

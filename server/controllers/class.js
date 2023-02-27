@@ -13,7 +13,7 @@ export const getClass = async (req, res) => {
     try {
         const {classId} = req.body;
         const data = await findClass({classId});
-        console.log(data.length);
+        // console.log(data.length);
         if (data.length === 0) {
             throw new Error('Không tìm thấy mã lớp ' + classId);
         }
@@ -49,7 +49,7 @@ export const createClass = async (req, res) => {
         const students = [];
         const teacher = await findTeacher({teacherId});
         if (!teacher) {
-            console.log('Invalid input Teacher ID');
+            // console.log('Invalid input Teacher ID');
             return res.json({message: 'Invalid input Teacher ID'});
         }
 
@@ -222,8 +222,8 @@ export const deleteStudentFromClass = async (req, res) => {
 export const addStudentToClass = async (req, res) => {
     try {
         const {studentId, classId} = req.body;
-        console.log('studentId ' + studentId);
-        console.log('classId' + classId);
+        // console.log('studentId ' + studentId);
+        // console.log('classId' + classId);
 
         const classInfo = await findClass({classId});
         const studentList = classInfo[0].students;

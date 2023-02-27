@@ -100,7 +100,7 @@ export const getStudentClassList = async (req, res) => {
 
         const classIDs = student.classes;
         const classList = [];
-        console.log(classIDs);
+        // console.log(classIDs);
         for (const ele of classIDs) {
             const classInfo = await findClass({classId: ele});
 
@@ -110,10 +110,10 @@ export const getStudentClassList = async (req, res) => {
                     element => element.studentId === studentId
                 );
                 // console.log(studentInClass);
-                console.log(classInfo[0].subjectId);
+                // console.log(classInfo[0].subjectId);
                 const subjectId = classInfo[0].subjectId;
                 const subject = await findSubject({subjectId});
-                console.log(subject.subjectName);
+                // console.log(subject.subjectName);
                 classList.push({
                     classId: ele,
                     subjectId: classInfo[0].subjectId,
