@@ -45,6 +45,7 @@ export const createClass = async (req, res) => {
         }
         const {classId, subjectId, teacherId, locationName, classBusyTime, maxSlot} = req.body;
         // console.log(classId + subjectId + teacherId + locationName + classBusyTime + maxSlot);
+        // console.log(classBusyTime);
         const students = [];
         const teacher = await findTeacher({teacherId});
         if (!teacher) {

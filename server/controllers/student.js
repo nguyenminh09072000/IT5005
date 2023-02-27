@@ -126,6 +126,7 @@ export const getStudentClassList = async (req, res) => {
                 });
             }
         }
+        // console.log(classList);
         return res.json(classList);
     } catch (error) {
         console.log(error);

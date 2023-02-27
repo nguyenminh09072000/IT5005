@@ -32,6 +32,7 @@ export default function SubjectDialog(props) {
 
     const handleSave = async () => {
         // console.log(StartTime);
+        let arr = StartTime.split(',');
         const response = await fetch('http://localhost:5000/class/create', {
             method: 'POST',
             headers: {
@@ -44,7 +45,7 @@ export default function SubjectDialog(props) {
                 teacherId: LecID,
                 // Day: Day,
                 locationName: Room,
-                classBusyTime: [StartTime],
+                classBusyTime: arr,
                 maxSlot: MaxSV,
             }),
         });
