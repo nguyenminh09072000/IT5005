@@ -69,7 +69,7 @@ export const deleteSubject = async (req, res) => {
 
 export const getAllSubject = async (req, res) => {
     try {
-        const data = await findListSubject();
+        const data = await findListSubject().sort({subjectId:1});
         return res.json(data);
     } catch (error) {
         res.status(500).json(error);
