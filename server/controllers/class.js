@@ -13,10 +13,11 @@ export const getClass = async (req, res) => {
     try {
         const {classId} = req.body;
         const data = await findClass({classId});
-        // console.log(data.length);
         if (data.length === 0) {
             throw new Error('Không tìm thấy mã lớp ' + classId);
         }
+        const teacher = await findTeacher({teacherId:data[0].teacherId})
+        data[1] = teacher.teacherName
         return res.json(data);
     } catch (error) {
         res.status(500).json(error);
@@ -276,7 +277,7 @@ export const addStudentToClass = async (req, res) => {
 
 export const getAllClass = async (req, res) => {
     try {
-        const data = await findClass();
+        const data = await findClass().sort({classId:1});
         return res.json(data);
     } catch (error) {
         res.status(500).json(error);
