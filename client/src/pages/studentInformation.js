@@ -19,6 +19,8 @@ function StudentInformation() {
     const [user, setUser] = useState({});
 
     const handleUpdate = async (email, phone, password, avatarImg) => {
+        console.log(avatarImg);
+        console.log(email);
         axios
             .post('http://localhost:5000/student/update', {
                 email: email,

@@ -37,7 +37,6 @@ function UserInformation(props) {
     const born = user.born;
     const identityNumber = user.identityNumber;
     const [phone, setPhone] = useState('');
-    console.log(phone);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errMsg, setErrMsg] = useState({
@@ -49,7 +48,7 @@ function UserInformation(props) {
 
     const [success, setSuccess] = useState(false);
 
-    console.log(avatarImg);
+    // console.log(avatarImg);
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
